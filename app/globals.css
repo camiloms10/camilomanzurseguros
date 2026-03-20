@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f6f8fb;
+  --foreground: #07111f;
+  --muted: #5c6b7a;
+  --card: rgba(255, 255, 255, 0.84);
+  --line: rgba(11, 31, 58, 0.1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(220, 235, 255, 0.8), transparent 32%),
+    linear-gradient(180deg, #f8fbff 0%, #f6f8fb 45%, #ffffff 100%);
+  color: var(--foreground);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(214, 45, 50, 0.18);
+  color: #07111f;
+}
+
+@layer base {
+  body {
+    font-family:
+      "Avenir Next",
+      "Segoe UI",
+      "Helvetica Neue",
+      sans-serif;
+    @apply antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family:
+      "Iowan Old Style",
+      "Palatino Linotype",
+      "Book Antiqua",
+      serif;
+    @apply font-semibold tracking-tight text-ink;
+  }
+
+  p {
+    @apply text-slate;
+  }
+}
+
+@layer components {
+  .container-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-gap {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .glass-panel {
+    @apply rounded-[28px] border border-white/70 bg-white/80 backdrop-blur-xl;
+    box-shadow: 0 18px 40px rgba(7, 17, 31, 0.08);
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em];
+    border: 1px solid rgba(11, 31, 58, 0.12);
+    color: #0b1f3a;
+  }
+
+  .button-primary {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white outline-none transition duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2;
+    background-color: #d62d32;
+  }
+
+  .button-secondary {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold outline-none transition duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2;
+    border: 1px solid rgba(11, 31, 58, 0.12);
+    color: #0b1f3a;
+  }
+
+  .button-primary:hover {
+    background-color: #be2227;
+  }
+
+  .button-primary:focus-visible {
+    --tw-ring-color: #d62d32;
+  }
+
+  .button-secondary:hover {
+    border-color: rgba(214, 45, 50, 0.4);
+    color: #d62d32;
+  }
+
+  .button-secondary:focus-visible {
+    --tw-ring-color: #0b1f3a;
+  }
+
+  .mobile-safe {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
+
+  .bottom-safe {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
+}

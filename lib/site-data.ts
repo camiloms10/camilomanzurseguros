@@ -1,0 +1,166 @@
+import {
+  ArrowRightIcon,
+  BadgeCheckIcon,
+  Building2Icon,
+  CarFrontIcon,
+  HandHeartIcon,
+  HeartPulseIcon,
+  HelpingHandIcon,
+  HomeIcon,
+  LandmarkIcon,
+  LifeBuoyIcon,
+  ShieldCheckIcon,
+  SparklesIcon,
+  WalletCardsIcon,
+} from "@/components/icons";
+
+export const siteConfig = {
+  name: "Camilo Manzur Seguros",
+  description:
+    "Asesoría personalizada en seguros para auto, gastos médicos, vida, hogar y empresas. Compara entre más de 14 aseguradoras y cotiza por WhatsApp en minutos.",
+  phone: "8331407662",
+  email: "camilo@symseguros.mx",
+  city: "Tampico, Tamaulipas",
+  whatsappMessage: "Hola, quiero cotizar un seguro",
+};
+
+export const navigation = [
+  { label: "Inicio", href: "#inicio" },
+  { label: "Seguros", href: "#seguros" },
+  { label: "Beneficios", href: "#beneficios" },
+  { label: "Contacto", href: "#contacto" },
+];
+
+export const stats = [
+  { value: "22 años", label: "asesorando a familias y empresas en México" },
+  { value: "+14 aseguradoras", label: "para comparar cobertura, servicio y costo" },
+  { value: "Atención nacional", label: "acompañamiento profesional en todo México" },
+];
+
+export const benefits = [
+  {
+    title: "Atención personalizada",
+    description:
+      "Analizamos tu situación, tus prioridades y tu presupuesto para recomendarte una opción que sí haga sentido para ti.",
+    icon: HandHeartIcon,
+  },
+  {
+    title: "Comparación inteligente",
+    description:
+      "Revisamos distintas aseguradoras para ayudarte a elegir con claridad, sin perder tiempo comparando solo por tu cuenta.",
+    icon: SparklesIcon,
+  },
+  {
+    title: "Acompañamiento completo",
+    description:
+      "Te guiamos desde la cotización hasta la contratación, renovaciones y dudas posteriores para que siempre tengas respaldo.",
+    icon: HelpingHandIcon,
+  },
+  {
+    title: "Experiencia comprobada",
+    description:
+      "Más de dos décadas asesorando clientes con un trato cercano, profesional y enfocado en proteger lo que más valoras.",
+    icon: BadgeCheckIcon,
+  },
+];
+
+export const insuranceTypes = [
+  {
+    title: "Seguro de auto",
+    description: "Protección para tu vehículo con coberturas claras y opciones competitivas entre distintas aseguradoras.",
+    icon: CarFrontIcon,
+  },
+  {
+    title: "Gastos médicos",
+    description: "Alternativas para cuidar tu salud, acceso hospitalario y respaldo financiero ante imprevistos médicos.",
+    icon: HeartPulseIcon,
+  },
+  {
+    title: "Seguro de vida",
+    description: "Soluciones para proteger a tu familia, tu patrimonio y la tranquilidad de quienes dependen de ti.",
+    icon: ShieldCheckIcon,
+  },
+  {
+    title: "Seguro de hogar",
+    description: "Coberturas pensadas para proteger tu casa, tus bienes y tu patrimonio frente a distintos riesgos.",
+    icon: HomeIcon,
+  },
+  {
+    title: "Seguro de empresas",
+    description: "Opciones para negocios y empresas que buscan continuidad operativa y protección patrimonial.",
+    icon: Building2Icon,
+  },
+  {
+    title: "Ahorro y retiro",
+    description: "Planes para construir patrimonio con visión de largo plazo y mayor tranquilidad financiera.",
+    icon: LandmarkIcon,
+  },
+];
+
+export const trustLogos = [
+  "AXA",
+  "HDI",
+  "GNP",
+  "Zurich",
+  "Mapfre",
+  "Qualitas",
+  "Seguros Monterrey",
+  "Banorte",
+  "Bupa",
+  "Chubb",
+  "Seguros Atlas",
+  "El Potosi",
+  "Afirme",
+  "Plan Seguro",
+];
+
+export const faqs = [
+  {
+    question: "¿Cuál es el mejor seguro para mí?",
+    answer:
+      "Depende de tu etapa de vida, el nivel de protección que buscas y tu presupuesto. La asesoría se enfoca en entender tu caso y proponerte opciones reales, no una póliza genérica.",
+  },
+  {
+    question: "¿Cuánto cuesta un seguro?",
+    answer:
+      "El costo cambia según el tipo de seguro, la cobertura y tu perfil. Por eso se comparan varias aseguradoras para presentarte alternativas claras y competitivas.",
+  },
+  {
+    question: "¿Puedo comparar opciones antes de decidir?",
+    answer:
+      "Sí. Una parte clave del servicio es ayudarte a comparar beneficios, deducibles, sumas aseguradas y servicio para que elijas con confianza.",
+  },
+  {
+    question: "¿Cómo funciona el proceso?",
+    answer:
+      "Primero se entiende qué necesitas, luego se cotiza entre varias aseguradoras y después se te acompaña para resolver dudas, contratar y dar seguimiento a tu póliza.",
+  },
+];
+
+export const heroHighlights = [
+  {
+    title: "Respuesta ágil",
+    description: "Impulsado por WhatsApp para convertir visitas en conversaciones reales.",
+    icon: ArrowRightIcon,
+  },
+  {
+    title: "Coberturas a tu medida",
+    description: "Comparación profesional con enfoque humano, no automatizado.",
+    icon: WalletCardsIcon,
+  },
+  {
+    title: "Acompañamiento continuo",
+    description: "Asesoría antes, durante y después de contratar tu seguro.",
+    icon: LifeBuoyIcon,
+  },
+];
+
+export const formOptions = [
+  "Seguro de auto",
+  "Gastos médicos",
+  "Seguro de vida",
+  "Seguro de hogar",
+  "Seguro de empresas",
+  "Ahorro y retiro",
+  "Otro",
+];
