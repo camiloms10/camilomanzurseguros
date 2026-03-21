@@ -76,7 +76,7 @@ body {
 
   .button-primary {
     @apply inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white outline-none transition duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2;
-    background-color: #d62d32;
+    background-color: #0b1f3a;
   }
 
   .button-secondary {
@@ -86,20 +86,33 @@ body {
   }
 
   .button-primary:hover {
-    background-color: #be2227;
+    background-color: #14325d;
   }
 
   .button-primary:focus-visible {
-    --tw-ring-color: #d62d32;
+    --tw-ring-color: #0b1f3a;
   }
 
   .button-secondary:hover {
-    border-color: rgba(214, 45, 50, 0.4);
-    color: #d62d32;
+    border-color: rgba(11, 31, 58, 0.3);
+    color: #0b1f3a;
   }
 
   .button-secondary:focus-visible {
     --tw-ring-color: #0b1f3a;
+  }
+
+  .button-whatsapp {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white outline-none transition duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2;
+    background-color: #17c45b;
+  }
+
+  .button-whatsapp:hover {
+    background-color: #11af50;
+  }
+
+  .button-whatsapp:focus-visible {
+    --tw-ring-color: #17c45b;
   }
 
   .mobile-safe {

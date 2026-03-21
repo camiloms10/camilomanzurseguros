@@ -5,6 +5,7 @@ import {
   ArrowRightIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  FacebookIcon,
   MenuIcon,
   MessageCircleIcon,
   PhoneIcon,
@@ -24,6 +25,87 @@ import {
 } from "@/lib/site-data";
 
 const whatsappHref = `https://wa.me/52${siteConfig.phone}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`;
+
+function BrandMarkHeader() {
+  const [logoMissing, setLogoMissing] = useState(false);
+
+  return (
+    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+      {!logoMissing ? (
+        <img
+          src={siteConfig.logoPath}
+          alt={siteConfig.name}
+          className="h-12 w-auto flex-none object-contain sm:h-14"
+          onError={() => setLogoMissing(true)}
+        />
+      ) : (
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-10 flex-none items-center justify-center sm:h-12 sm:w-11">
+            <svg viewBox="0 0 86 120" className="h-11 w-10 sm:h-12 sm:w-11" fill="none" aria-hidden="true">
+              <path
+                d="M24 18c15-6 32-8 53-7-22 4-37 10-47 18v46c0 20 6 33 16 43-7-1-16-7-24-18C12 89 8 75 8 57V18c4 1 10 1 16 0Z"
+                fill="#FFFFFF"
+              />
+              <path
+                d="M41 24c14 0 27 2 40 7v34c0 19-8 35-24 48l-11-8c13-10 20-23 20-39V32c-8-3-17-5-25-8Z"
+                fill="#B6BED2"
+              />
+            </svg>
+          </div>
+          <div className="min-w-0">
+            <div className="flex flex-col leading-none sm:flex-row sm:items-end sm:gap-3">
+              <span className="truncate text-[1.55rem] font-semibold tracking-[-0.04em] text-white sm:text-[2rem]">
+                Camilo Manzur
+              </span>
+              <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:mb-[0.28rem] sm:mt-0 sm:text-[0.78rem]">
+                Agente de Seguros
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="min-w-0">
+        <div className="flex flex-col leading-none sm:flex-row sm:items-end sm:gap-3">
+          <span className="truncate text-[1.55rem] font-semibold tracking-[-0.04em] text-white sm:text-[2rem]">
+            Camilo Manzur
+          </span>
+          <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:mb-[0.28rem] sm:mt-0 sm:text-[0.78rem]">
+            Agente de Seguros
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BrandMarkFooter() {
+  const [logoMissing, setLogoMissing] = useState(false);
+
+  return (
+    <div className="relative">
+      {!logoMissing ? (
+        <img
+          src={siteConfig.logoPath}
+          alt={siteConfig.name}
+          className="h-16 w-auto object-contain"
+          onError={() => setLogoMissing(true)}
+        />
+      ) : null}
+
+      {logoMissing ? (
+        <div className="flex items-center gap-3">
+          <div className="flex h-12 w-12 flex-none items-center justify-center rounded-xl bg-brand-navy text-sm font-bold text-white shadow-card">
+            CM
+          </div>
+          <div className="min-w-0">
+            <p className="truncate text-base font-semibold text-ink">Camilo Manzur</p>
+            <p className="truncate text-xs uppercase tracking-[0.16em] text-brand-red">Agente de seguros</p>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
 
 function SectionHeading({
   eyebrow,
@@ -47,16 +129,10 @@ function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/40 bg-white/82 backdrop-blur-xl">
-      <div className="container-shell flex h-16 items-center justify-between gap-3 sm:h-20 sm:gap-4">
-        <a href="#inicio" className="flex min-w-0 items-center gap-3">
-          <div className="flex h-11 w-11 flex-none items-center justify-center rounded-2xl bg-brand-navy text-sm font-bold text-white shadow-card sm:h-12 sm:w-12">
-            CMS
-          </div>
-          <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-ink">Camilo Manzur Seguros</p>
-            <p className="truncate text-[11px] text-slate sm:text-xs">Placeholder de logo</p>
-          </div>
+    <header className="sticky top-0 z-50 border-b border-white/8 bg-[#172448] backdrop-blur-xl">
+      <div className="container-shell flex h-[4.7rem] items-center justify-between gap-3 sm:h-[5.35rem] sm:gap-5">
+        <a href="#inicio" className="flex min-w-0 items-center">
+          <BrandMarkHeader />
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -64,7 +140,7 @@ function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-slate transition hover:text-brand-navy"
+              className="text-sm font-medium text-white/78 transition hover:text-white"
             >
               {item.label}
             </a>
@@ -72,7 +148,7 @@ function Header() {
         </nav>
 
         <div className="hidden lg:flex">
-          <a href={whatsappHref} target="_blank" rel="noreferrer" className="button-primary">
+          <a href={whatsappHref} target="_blank" rel="noreferrer" className="button-whatsapp">
             Cotizar ahora
           </a>
         </div>
@@ -80,7 +156,7 @@ function Header() {
         <button
           type="button"
           aria-label="Abrir menú"
-          className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-full border border-brand-navy/10 bg-white text-brand-navy lg:hidden"
+          className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-full border border-white/20 bg-white/12 text-white shadow-[0_8px_20px_rgba(0,0,0,0.18)] lg:hidden"
           onClick={() => setOpen((value) => !value)}
         >
           {open ? <XIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
@@ -88,13 +164,13 @@ function Header() {
       </div>
 
       {open ? (
-        <div className="border-t border-brand-navy/8 bg-white lg:hidden">
+        <div className="border-t border-white/10 bg-[#172448] lg:hidden">
           <div className="container-shell flex flex-col gap-3 py-4">
             {navigation.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-2xl border border-slate-200/70 px-4 py-3 text-sm font-medium text-slate"
+                className="rounded-2xl border border-white/14 bg-white/8 px-4 py-3 text-sm font-medium text-white"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
@@ -104,7 +180,7 @@ function Header() {
               href={whatsappHref}
               target="_blank"
               rel="noreferrer"
-              className="button-primary w-full"
+              className="button-whatsapp w-full"
             >
               Cotizar ahora
             </a>
@@ -137,7 +213,7 @@ function Hero() {
                 href={whatsappHref}
                 target="_blank"
                 rel="noreferrer"
-                className="button-primary w-full gap-2 sm:w-auto"
+                className="button-whatsapp w-full gap-2 sm:w-auto"
               >
                 Cotizar por WhatsApp
                 <MessageCircleIcon className="h-4 w-4" />
@@ -148,8 +224,8 @@ function Hero() {
               </a>
             </div>
 
-            <div className="mt-4 flex items-center gap-2 rounded-2xl border border-brand-red/12 bg-white/75 px-4 py-3 text-sm text-brand-navy shadow-sm sm:hidden">
-              <MessageCircleIcon className="h-4 w-4 flex-none text-brand-red" />
+            <div className="mt-4 flex items-center gap-2 rounded-2xl border border-brand-navy/10 bg-white/75 px-4 py-3 text-sm text-brand-navy shadow-sm sm:hidden">
+              <MessageCircleIcon className="h-4 w-4 flex-none text-[#17c45b]" />
               <p className="text-sm leading-6 text-brand-navy">
                 La forma más rápida de cotizar es por WhatsApp.
               </p>
@@ -169,14 +245,14 @@ function Hero() {
           </div>
 
           <div className="relative animate-fade-up lg:pl-6">
-            <div className="absolute -left-8 top-8 hidden h-24 w-24 rounded-full bg-brand-red/10 blur-2xl sm:block" />
+            <div className="absolute -left-8 top-8 hidden h-24 w-24 rounded-full bg-brand-navy/10 blur-2xl sm:block" />
             <div className="glass-panel relative overflow-hidden p-4 sm:p-8">
-              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-red via-brand-navy to-brand-red" />
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-navy via-brand-red/80 to-brand-navy" />
               <div className="grid gap-4 sm:gap-5">
                 <div className="rounded-[28px] bg-hero-radial p-5 shadow-soft sm:p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-red sm:text-sm">
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-navy sm:text-sm">
                         Diagnóstico rápido
                       </p>
                       <h2 className="mt-3 text-xl font-semibold leading-tight sm:text-2xl">
@@ -257,7 +333,7 @@ function Benefits() {
                 className="glass-panel group p-5 transition duration-300 hover:-translate-y-1 hover:shadow-soft sm:p-7"
                 style={{ animationDelay: `${index * 120}ms` }}
               >
-                <div className="inline-flex rounded-3xl bg-brand-sky p-3 text-brand-navy transition group-hover:bg-brand-red group-hover:text-white sm:p-4">
+                <div className="inline-flex rounded-3xl bg-brand-sky p-3 text-brand-navy transition group-hover:bg-brand-navy group-hover:text-white sm:p-4">
                   <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
                 <h3 className="mt-5 text-xl">{benefit.title}</h3>
@@ -288,9 +364,9 @@ function InsuranceGrid() {
             return (
               <article
                 key={insurance.title}
-                className="group flex h-full flex-col rounded-[28px] border border-brand-navy/10 bg-white p-5 shadow-card transition duration-300 hover:-translate-y-1.5 hover:border-brand-red/25 hover:shadow-soft sm:p-7"
+                className="group flex h-full flex-col rounded-[28px] border border-brand-navy/10 bg-white p-5 shadow-card transition duration-300 hover:-translate-y-1.5 hover:border-brand-navy/20 hover:shadow-soft sm:p-7"
               >
-                <div className="inline-flex w-fit rounded-3xl bg-brand-navy p-3 text-white transition group-hover:bg-brand-red sm:p-4">
+                <div className="inline-flex w-fit rounded-3xl bg-brand-navy p-3 text-white transition group-hover:bg-[#14325d] sm:p-4">
                   <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
                 <h3 className="mt-5 text-xl sm:text-2xl">{insurance.title}</h3>
@@ -299,7 +375,7 @@ function InsuranceGrid() {
                   href={whatsappHref}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-red transition group-hover:gap-3 sm:mt-6"
+                  className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-navy transition group-hover:gap-3 sm:mt-6"
                 >
                   Cotizar
                   <ArrowRightIcon className="h-4 w-4" />
@@ -340,7 +416,7 @@ function TrustSection() {
                   </p>
                 </div>
                 <div className="rounded-3xl border border-brand-navy/10 bg-mist p-4 sm:p-5">
-                  <p className="text-sm uppercase tracking-[0.18em] text-brand-red">
+                  <p className="text-sm uppercase tracking-[0.18em] text-brand-navy">
                     Proceso claro
                   </p>
                   <p className="mt-2 text-lg font-semibold text-brand-navy sm:text-xl">
@@ -353,10 +429,19 @@ function TrustSection() {
             <div className="-mx-1 grid grid-cols-2 gap-3 sm:mx-0 sm:grid-cols-3 sm:gap-4">
               {trustLogos.map((logo) => (
                 <div
-                  key={logo}
-                  className="flex min-h-20 items-center justify-center rounded-[22px] border border-brand-navy/8 bg-white px-3 py-4 text-center text-xs font-semibold text-brand-navy shadow-sm sm:min-h-24 sm:rounded-[24px] sm:px-4 sm:py-5 sm:text-sm"
+                  key={logo.name}
+                  className="flex min-h-20 flex-col items-center justify-center gap-2 rounded-[22px] border border-brand-navy/8 bg-white px-3 py-4 text-center text-xs font-semibold text-brand-navy shadow-sm sm:min-h-24 sm:rounded-[24px] sm:px-4 sm:py-5 sm:text-sm"
                 >
-                  {logo}
+                  {logo.src ? (
+                    <img
+                      src={logo.src}
+                      alt={`Logo de ${logo.name}`}
+                      className={logo.logoClassName ?? "h-8 w-auto object-contain"}
+                    />
+                  ) : null}
+                  <span className={logo.src ? "text-[11px] sm:text-xs" : "text-sm sm:text-base"}>
+                    {logo.name}
+                  </span>
                 </div>
               ))}
             </div>
@@ -373,7 +458,7 @@ function PersonalSection() {
       <div className="container-shell">
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-8">
           <div className="relative">
-            <div className="absolute inset-x-8 inset-y-10 rounded-[36px] bg-brand-red/10 blur-3xl" />
+            <div className="absolute inset-x-8 inset-y-10 rounded-[36px] bg-brand-navy/10 blur-3xl" />
             <div className="glass-panel relative flex min-h-[320px] items-end overflow-hidden p-5 sm:min-h-[420px] sm:p-8">
               <div className="absolute inset-0 bg-[linear-gradient(150deg,rgba(11,31,58,0.92),rgba(11,31,58,0.62),rgba(214,45,50,0.28))]" />
               <div className="relative z-10 rounded-[26px] border border-white/20 bg-white/10 p-5 text-white backdrop-blur sm:rounded-[30px] sm:p-8">
@@ -411,7 +496,7 @@ function PersonalSection() {
                 href={whatsappHref}
                 target="_blank"
                 rel="noreferrer"
-                className="button-primary w-full sm:w-auto"
+                className="button-whatsapp w-full sm:w-auto"
               >
                 Hablar con Camilo
               </a>
@@ -446,7 +531,7 @@ function FAQSection() {
               href={whatsappHref}
               target="_blank"
               rel="noreferrer"
-              className="button-primary mt-6 inline-flex w-full sm:mt-8 sm:w-auto"
+              className="button-whatsapp mt-6 inline-flex w-full sm:mt-8 sm:w-auto"
             >
               Resolver por WhatsApp
             </a>
@@ -468,7 +553,7 @@ function FAQSection() {
                   >
                     <span className="pr-2 text-base font-semibold text-ink sm:text-lg">{faq.question}</span>
                     <ChevronDownIcon
-                      className={`h-5 w-5 flex-none text-brand-red transition ${
+                      className={`h-5 w-5 flex-none text-brand-navy transition ${
                         isActive ? "rotate-180" : ""
                       }`}
                     />
@@ -534,6 +619,24 @@ function ContactSection() {
                 <p className="text-sm text-white/70">Cobertura</p>
                 <p className="mt-1 font-semibold">Atención en todo México desde Tampico, Tamaulipas</p>
               </div>
+
+              <a
+                href={siteConfig.facebookUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex min-h-16 items-center justify-between gap-4 rounded-[24px] border border-white/12 bg-white/10 px-4 py-4 transition hover:bg-white/15 sm:px-5"
+              >
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="rounded-2xl bg-white/10 p-3">
+                    <FacebookIcon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-white/70">Facebook</p>
+                    <p className="text-sm font-semibold sm:text-base">Ver presencia y actividad</p>
+                  </div>
+                </div>
+                <ChevronRightIcon className="h-5 w-5" />
+              </a>
             </div>
           </div>
 
@@ -644,7 +747,9 @@ function Footer() {
     <footer className="border-t border-brand-navy/8 bg-white/90 py-10">
       <div className="container-shell bottom-safe flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <p className="text-lg font-semibold text-brand-navy">Camilo Manzur Seguros</p>
+          <div className="mb-3">
+            <BrandMarkFooter />
+          </div>
           <p className="mt-2 max-w-xl text-sm leading-7">
             Asesoría profesional en seguros con enfoque humano, comparación entre
             aseguradoras y seguimiento personalizado en todo México.
@@ -652,12 +757,21 @@ function Footer() {
         </div>
 
         <div className="grid gap-2 text-sm">
-          <a href={`tel:${siteConfig.phone}`} className="transition hover:text-brand-red">
+          <a href={`tel:${siteConfig.phone}`} className="transition hover:text-brand-navy">
             Teléfono: {siteConfig.phone}
           </a>
           <p>Ubicación: {siteConfig.city}</p>
-          <a href={`mailto:${siteConfig.email}`} className="transition hover:text-brand-red">
+          <a href={`mailto:${siteConfig.email}`} className="transition hover:text-brand-navy">
             Correo: {siteConfig.email}
+          </a>
+          <a
+            href={siteConfig.facebookUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 transition hover:text-brand-navy"
+          >
+            <FacebookIcon className="h-4 w-4" />
+            Facebook
           </a>
           <p className="text-xs text-slate">
             Información de carácter informativo. Las coberturas y condiciones dependen
@@ -692,7 +806,7 @@ function MobileStickyBar() {
           href={whatsappHref}
           target="_blank"
           rel="noreferrer"
-          className="button-primary gap-2"
+          className="button-whatsapp gap-2"
         >
           <MessageCircleIcon className="h-4 w-4" />
           WhatsApp

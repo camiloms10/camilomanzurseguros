@@ -22,6 +22,8 @@ export const siteConfig = {
   email: "camilo@symseguros.mx",
   city: "Tampico, Tamaulipas",
   whatsappMessage: "Hola, quiero cotizar un seguro",
+  facebookUrl: "https://www.facebook.com/profile.php?id=61577805622923",
+  logoPath: "/logo-camilo-manzur.png",
 };
 
 export const navigation = [
@@ -97,21 +99,31 @@ export const insuranceTypes = [
   },
 ];
 
-export const trustLogos = [
-  "AXA",
-  "HDI",
-  "GNP",
-  "Zurich",
-  "Mapfre",
-  "Qualitas",
-  "Seguros Monterrey",
-  "Banorte",
-  "Bupa",
-  "Chubb",
-  "Seguros Atlas",
-  "El Potosi",
-  "Afirme",
-  "Plan Seguro",
+type TrustLogo = {
+  name: string;
+  src?: string;
+  logoClassName?: string;
+};
+
+export const trustLogos: TrustLogo[] = [
+  { name: "AXA", src: "/insurers/axa.ico", logoClassName: "h-9 w-9 object-contain" },
+  { name: "HDI" },
+  { name: "GNP", src: "/insurers/gnp.svg", logoClassName: "h-9 w-auto object-contain" },
+  { name: "Zurich", src: "/insurers/zurich.svg", logoClassName: "h-9 w-auto object-contain" },
+  { name: "Mapfre", src: "/insurers/mapfre.png", logoClassName: "h-8 w-auto object-contain" },
+  { name: "Qualitas", src: "/insurers/qualitas.ico", logoClassName: "h-9 w-9 object-contain" },
+  {
+    name: "Seguros Monterrey",
+    src: "/insurers/seguros-monterrey.png",
+    logoClassName: "h-9 w-auto object-contain",
+  },
+  { name: "Banorte" },
+  { name: "Bupa", src: "/insurers/bupa.svg", logoClassName: "h-8 w-auto object-contain" },
+  { name: "Chubb", src: "/insurers/chubb.png", logoClassName: "h-8 w-auto object-contain" },
+  { name: "Seguros Atlas" },
+  { name: "El Potosi" },
+  { name: "Afirme", src: "/insurers/afirme.png", logoClassName: "h-8 w-auto object-contain" },
+  { name: "Plan Seguro", src: "/insurers/plan-seguro.png", logoClassName: "h-8 w-auto object-contain" },
 ];
 
 export const faqs = [
