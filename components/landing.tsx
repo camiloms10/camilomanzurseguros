@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRightIcon,
   ChevronDownIcon,
@@ -25,6 +25,47 @@ import {
 } from "@/lib/site-data";
 
 const whatsappHref = `https://wa.me/52${siteConfig.phone}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`;
+
+function Reveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.14, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
+      style={{ ["--reveal-delay" as string]: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
 
 function BrandMarkHeader() {
   const [logoMissing, setLogoMissing] = useState(false);
@@ -119,8 +160,8 @@ function SectionHeading({
   return (
     <div className="mx-auto max-w-3xl text-left sm:text-center">
       <span className="eyebrow">{eyebrow}</span>
-      <h2 className="mt-5 text-3xl font-semibold leading-tight sm:mt-6 sm:text-4xl">{title}</h2>
-      <p className="mt-3 text-base leading-7 sm:mt-4 sm:text-lg">{description}</p>
+      <h2 className="type-heading mt-5 text-3xl leading-tight sm:mt-6 sm:text-4xl">{title}</h2>
+      <p className="type-body mt-3 sm:mt-4 sm:text-lg">{description}</p>
     </div>
   );
 }
@@ -196,13 +237,13 @@ function Hero() {
     <section id="inicio" className="relative overflow-hidden pt-6 sm:pt-10">
       <div className="container-shell">
         <div className="grid items-center gap-7 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
-          <div className="animate-fade-up">
+          <Reveal>
             <span className="eyebrow">Asesoría en seguros en todo México</span>
-            <h1 className="mt-5 max-w-3xl text-[2.65rem] leading-[0.96] sm:mt-6 sm:text-6xl lg:text-7xl">
+            <h1 className="type-display mt-5 max-w-3xl text-[2.65rem] leading-[0.96] sm:mt-6 sm:text-6xl lg:text-7xl">
               22 años protegiendo{" "}
               <span className="text-brand-red">lo que más importa</span>
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-7 sm:mt-6 sm:text-xl sm:leading-8">
+            <p className="type-body mt-5 max-w-2xl sm:mt-6 sm:text-xl sm:leading-8">
               Te ayudamos a encontrar el seguro ideal entre más de 14 aseguradoras
               con atención personalizada, claridad y seguimiento durante todo el
               proceso.
@@ -237,14 +278,14 @@ function Hero() {
                   key={item.label}
                   className="rounded-3xl border border-white/60 bg-white/85 p-4 shadow-card backdrop-blur sm:p-5"
                 >
-                  <p className="text-base font-semibold text-brand-navy sm:text-lg">{item.value}</p>
+                  <p className="type-subheading text-base text-brand-navy sm:text-lg">{item.value}</p>
                   <p className="mt-1.5 text-sm leading-6 sm:mt-2">{item.label}</p>
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
 
-          <div className="relative animate-fade-up lg:pl-6">
+          <Reveal className="relative lg:pl-6" delay={120}>
             <div className="absolute -left-8 top-8 hidden h-24 w-24 rounded-full bg-brand-navy/10 blur-2xl sm:block" />
             <div className="glass-panel relative overflow-hidden p-4 sm:p-8">
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-navy via-brand-red/80 to-brand-navy" />
@@ -255,7 +296,7 @@ function Hero() {
                       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-navy sm:text-sm">
                         Diagnóstico rápido
                       </p>
-                      <h2 className="mt-3 text-xl font-semibold leading-tight sm:text-2xl">
+                      <h2 className="type-heading mt-3 text-xl leading-tight sm:text-2xl">
                         Cotiza con el respaldo de un agente que compara por ti
                       </h2>
                     </div>
@@ -276,7 +317,7 @@ function Hero() {
                             <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                           </div>
                           <div>
-                            <h3 className="text-base font-semibold">{item.title}</h3>
+                            <h3 className="type-subheading text-base">{item.title}</h3>
                             <p className="mt-1 text-sm leading-6">{item.description}</p>
                           </div>
                         </div>
@@ -290,7 +331,7 @@ function Hero() {
                     <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-sm">
                       Contacto directo
                     </p>
-                    <p className="mt-2 text-lg font-semibold sm:text-xl">
+                    <p className="type-subheading mt-2 text-lg text-white sm:text-xl">
                       Habla con Camilo y recibe orientación clara desde el primer mensaje.
                     </p>
                   </div>
@@ -306,7 +347,7 @@ function Hero() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -317,28 +358,30 @@ function Benefits() {
   return (
     <section id="beneficios" className="section-gap">
       <div className="container-shell">
-        <SectionHeading
-          eyebrow="Beneficios"
-          title="Un servicio pensado para darte confianza desde el primer contacto"
-          description="La asesoría se centra en ayudarte a decidir con claridad, comparar bien y contar con acompañamiento humano en cada paso."
-        />
+        <Reveal>
+          <SectionHeading
+            eyebrow="Beneficios"
+            title="Un servicio pensado para darte confianza desde el primer contacto"
+            description="La asesoría se centra en ayudarte a decidir con claridad, comparar bien y contar con acompañamiento humano en cada paso."
+          />
+        </Reveal>
 
         <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
 
             return (
-              <article
+              <Reveal
                 key={benefit.title}
                 className="glass-panel group p-5 transition duration-300 hover:-translate-y-1 hover:shadow-soft sm:p-7"
-                style={{ animationDelay: `${index * 120}ms` }}
+                delay={index * 90}
               >
                 <div className="inline-flex rounded-3xl bg-brand-sky p-3 text-brand-navy transition group-hover:bg-brand-navy group-hover:text-white sm:p-4">
                   <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
-                <h3 className="mt-5 text-xl">{benefit.title}</h3>
+                <h3 className="type-subheading mt-5 text-xl">{benefit.title}</h3>
                 <p className="mt-2.5 text-sm leading-7">{benefit.description}</p>
-              </article>
+              </Reveal>
             );
           })}
         </div>
@@ -351,25 +394,28 @@ function InsuranceGrid() {
   return (
     <section id="seguros" className="section-gap pt-0">
       <div className="container-shell">
-        <SectionHeading
-          eyebrow="Seguros"
-          title="Coberturas para cada etapa, patrimonio y necesidad"
-          description="Desde seguros personales hasta soluciones empresariales, aquí encuentras acompañamiento para elegir con criterio y sin presión."
-        />
+        <Reveal>
+          <SectionHeading
+            eyebrow="Seguros"
+            title="Coberturas para cada etapa, patrimonio y necesidad"
+            description="Desde seguros personales hasta soluciones empresariales, aquí encuentras acompañamiento para elegir con criterio y sin presión."
+          />
+        </Reveal>
 
         <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {insuranceTypes.map((insurance) => {
+          {insuranceTypes.map((insurance, index) => {
             const Icon = insurance.icon;
 
             return (
-              <article
+              <Reveal
                 key={insurance.title}
                 className="group flex h-full flex-col rounded-[28px] border border-brand-navy/10 bg-white p-5 shadow-card transition duration-300 hover:-translate-y-1.5 hover:border-brand-navy/20 hover:shadow-soft sm:p-7"
+                delay={index * 80}
               >
                 <div className="inline-flex w-fit rounded-3xl bg-brand-navy p-3 text-white transition group-hover:bg-[#14325d] sm:p-4">
                   <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
-                <h3 className="mt-5 text-xl sm:text-2xl">{insurance.title}</h3>
+                <h3 className="type-subheading mt-5 text-xl sm:text-2xl">{insurance.title}</h3>
                 <p className="mt-2.5 flex-1 text-sm leading-7">{insurance.description}</p>
                 <a
                   href={whatsappHref}
@@ -380,7 +426,7 @@ function InsuranceGrid() {
                   Cotizar
                   <ArrowRightIcon className="h-4 w-4" />
                 </a>
-              </article>
+              </Reveal>
             );
           })}
         </div>
@@ -393,14 +439,14 @@ function TrustSection() {
   return (
     <section className="section-gap pt-0">
       <div className="container-shell">
-        <div className="glass-panel overflow-hidden p-5 sm:p-10">
+        <Reveal className="glass-panel overflow-hidden p-5 sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-10">
             <div>
               <span className="eyebrow">Confianza que se siente</span>
-              <h2 className="mt-5 text-3xl sm:mt-6 sm:text-4xl">
+              <h2 className="type-heading mt-5 text-3xl sm:mt-6 sm:text-4xl">
                 Más de 22 años de experiencia comparando opciones con criterio
               </h2>
-              <p className="mt-3 text-base leading-7 sm:mt-4 sm:text-lg">
+              <p className="type-body mt-3 sm:mt-4 sm:text-lg">
                 Cotizamos en más de 14 aseguradoras para ayudarte a encontrar la
                 combinación correcta entre cobertura, servicio y precio. Miles de
                 clientes han recibido asesoría con atención cercana y profesional.
@@ -411,7 +457,7 @@ function TrustSection() {
                   <p className="text-sm uppercase tracking-[0.18em] text-white/70">
                     Cobertura nacional
                   </p>
-                  <p className="mt-2 text-lg font-semibold sm:text-xl">
+                  <p className="type-subheading mt-2 text-lg text-white sm:text-xl">
                     Atención para personas, familias y empresas en todo México.
                   </p>
                 </div>
@@ -419,7 +465,7 @@ function TrustSection() {
                   <p className="text-sm uppercase tracking-[0.18em] text-brand-navy">
                     Proceso claro
                   </p>
-                  <p className="mt-2 text-lg font-semibold text-brand-navy sm:text-xl">
+                  <p className="type-subheading mt-2 text-lg text-brand-navy sm:text-xl">
                     Comparación, orientación y seguimiento en renovaciones.
                   </p>
                 </div>
@@ -446,7 +492,7 @@ function TrustSection() {
               ))}
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -457,7 +503,7 @@ function PersonalSection() {
     <section className="section-gap pt-0">
       <div className="container-shell">
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-8">
-          <div className="relative">
+          <Reveal className="relative">
             <div className="absolute inset-x-8 inset-y-10 rounded-[36px] bg-brand-navy/10 blur-3xl" />
             <div className="glass-panel relative flex min-h-[320px] items-end overflow-hidden p-5 sm:min-h-[420px] sm:p-8">
               <div className="absolute inset-0 bg-[linear-gradient(150deg,rgba(11,31,58,0.92),rgba(11,31,58,0.62),rgba(214,45,50,0.28))]" />
@@ -465,27 +511,27 @@ function PersonalSection() {
                 <p className="text-sm uppercase tracking-[0.22em] text-white/70">
                   Foto placeholder
                 </p>
-                <h3 className="mt-3 text-2xl font-semibold text-white sm:mt-4 sm:text-3xl">Camilo Manzur</h3>
+                <h3 className="type-heading mt-3 text-2xl text-white sm:mt-4 sm:text-3xl">Camilo Manzur</h3>
                 <p className="mt-3 max-w-sm text-white/80">
                   Agente de seguros con más de 22 años ayudando a familias y empresas
                   a proteger su patrimonio.
                 </p>
               </div>
             </div>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal delay={100}>
             <span className="eyebrow">Asesoría humana</span>
-            <h2 className="mt-5 text-3xl sm:mt-6 sm:text-4xl">
+            <h2 className="type-heading mt-5 text-3xl sm:mt-6 sm:text-4xl">
               Una relación de confianza, no solo una cotización
             </h2>
-            <p className="mt-3 text-base leading-7 sm:mt-4 sm:text-lg sm:leading-8">
+            <p className="type-body mt-3 sm:mt-4 sm:text-lg sm:leading-8">
               El enfoque de Camilo Manzur Seguros es acompañarte con claridad y
               cercanía para que tomes una decisión bien informada. Aquí no se trata
               de ofrecerte una póliza al azar, sino de entender qué quieres proteger
               y ayudarte a elegir la cobertura adecuada.
             </p>
-            <p className="mt-3 text-base leading-7 sm:mt-4 sm:text-lg sm:leading-8">
+            <p className="type-body mt-3 sm:mt-4 sm:text-lg sm:leading-8">
               Esa combinación de experiencia, seguimiento y trato personalizado es
               la razón por la que tantos clientes vuelven para renovar, ajustar o
               ampliar su protección con el tiempo.
@@ -504,7 +550,7 @@ function PersonalSection() {
                 Dejar mis datos
               </a>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -518,12 +564,12 @@ function FAQSection() {
     <section className="section-gap pt-0">
       <div className="container-shell">
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
-          <div>
+          <Reveal>
             <span className="eyebrow">Preguntas frecuentes</span>
-            <h2 className="mt-5 text-3xl sm:mt-6 sm:text-4xl">
+            <h2 className="type-heading mt-5 text-3xl sm:mt-6 sm:text-4xl">
               Respuestas claras para decidir con más confianza
             </h2>
-            <p className="mt-3 text-base leading-7 sm:mt-4 sm:text-lg">
+            <p className="type-body mt-3 sm:mt-4 sm:text-lg">
               Si prefieres resolverlo en una conversación rápida, WhatsApp sigue
               siendo la vía más directa para empezar tu cotización.
             </p>
@@ -535,23 +581,24 @@ function FAQSection() {
             >
               Resolver por WhatsApp
             </a>
-          </div>
+          </Reveal>
 
           <div className="space-y-3 sm:space-y-4">
             {faqs.map((faq, index) => {
               const isActive = active === index;
 
               return (
-                <article
+                <Reveal
                   key={faq.question}
                   className="rounded-[24px] border border-brand-navy/10 bg-white p-4 shadow-card sm:p-6"
+                  delay={index * 70}
                 >
                   <button
                     type="button"
                     className="flex min-h-12 w-full items-center justify-between gap-4 text-left"
                     onClick={() => setActive(isActive ? null : index)}
                   >
-                    <span className="pr-2 text-base font-semibold text-ink sm:text-lg">{faq.question}</span>
+                    <span className="type-subheading pr-2 text-base sm:text-lg">{faq.question}</span>
                     <ChevronDownIcon
                       className={`h-5 w-5 flex-none text-brand-navy transition ${
                         isActive ? "rotate-180" : ""
@@ -559,7 +606,7 @@ function FAQSection() {
                     />
                   </button>
                   {isActive ? <p className="mt-3 text-sm leading-7 sm:mt-4">{faq.answer}</p> : null}
-                </article>
+                </Reveal>
               );
             })}
           </div>
@@ -574,9 +621,9 @@ function ContactSection() {
     <section id="contacto" className="section-gap pt-0">
       <div className="container-shell">
         <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:gap-8">
-          <div className="rounded-[32px] bg-brand-navy p-5 text-white shadow-soft sm:p-10">
+          <Reveal className="rounded-[32px] bg-brand-navy p-5 text-white shadow-soft sm:p-10">
             <span className="eyebrow border-white/15 bg-white/10 text-white">Contacto</span>
-            <h2 className="mt-5 text-3xl text-white sm:mt-6 sm:text-4xl">
+            <h2 className="type-heading mt-5 text-3xl text-white sm:mt-6 sm:text-4xl">
               Tu siguiente paso puede empezar hoy
             </h2>
             <p className="mt-3 text-base leading-7 text-white/76 sm:mt-4 sm:text-lg sm:leading-8">
@@ -638,11 +685,11 @@ function ContactSection() {
                 <ChevronRightIcon className="h-5 w-5" />
               </a>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="glass-panel p-5 sm:p-10">
+          <Reveal className="glass-panel p-5 sm:p-10" delay={120}>
             <div className="max-w-2xl">
-              <h3 className="text-2xl">Solicitar asesoría</h3>
+              <h3 className="type-heading text-2xl">Solicitar asesoría</h3>
               <p className="mt-3 text-sm leading-7">
                 Formulario conectado a FormSubmit. Puedes cambiar este destino más
                 adelante por tu CRM o servicio de email preferido sin tocar el diseño.
@@ -735,7 +782,7 @@ function ContactSection() {
                 </button>
               </div>
             </form>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
