@@ -259,7 +259,7 @@ function Hero() {
                 Cotizar por WhatsApp
                 <MessageCircleIcon className="h-4 w-4" />
               </a>
-              <a href="#contacto" className="button-secondary w-full gap-2 sm:w-auto">
+              <a href="#formulario" className="button-secondary w-full gap-2 sm:w-auto">
                 Solicitar asesoría
                 <ArrowRightIcon className="h-4 w-4" />
               </a>
@@ -658,119 +658,121 @@ function ContactSection() {
             </div>
           </Reveal>
 
-          <Reveal className="glass-panel p-5 sm:p-10" delay={120}>
-            <div className="max-w-2xl">
-              <h3 className="type-heading text-2xl">Solicitar asesoría</h3>
-              <p className="mt-3 text-sm leading-7">
-                Formulario conectado a FormSubmit. Puedes cambiar este destino más
-                adelante por tu CRM o servicio de email preferido sin tocar el diseño.
-              </p>
-            </div>
-
-            <form
-              action="https://formsubmit.co/camilo@symseguros.mx"
-              method="POST"
-              className="mt-6 grid gap-4 sm:mt-8 sm:gap-5"
-              onSubmit={handleSubmit}
-            >
-              <input type="hidden" name="_subject" value="Nuevo lead desde Camilo Manzur Seguros" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-
-              <div className="grid gap-5 sm:grid-cols-2">
-                <label className="grid gap-2 text-sm font-medium text-ink">
-                  Nombre
-                  <input
-                    type="text"
-                    name="nombre"
-                    required
-                    className="min-h-12 rounded-2xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
-                    placeholder="Tu nombre completo"
-                  />
-                </label>
-
-                <label className="grid gap-2 text-sm font-medium text-ink">
-                  Teléfono
-                  <input
-                    type="tel"
-                    name="telefono"
-                    required
-                    className="min-h-12 rounded-2xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
-                    placeholder="Tu número"
-                  />
-                </label>
-              </div>
-
-              <div className="grid gap-5 sm:grid-cols-2">
-                <label className="grid gap-2 text-sm font-medium text-ink">
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    className="min-h-12 rounded-2xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
-                    placeholder="tu@email.com"
-                  />
-                </label>
-
-                <label className="grid gap-2 text-sm font-medium text-ink">
-                  Tipo de seguro
-                  <select
-                    name="tipo_de_seguro"
-                    required
-                    className="min-h-12 rounded-2xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Selecciona una opción
-                    </option>
-                    {formOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-
-              <label className="grid gap-2 text-sm font-medium text-ink">
-                Mensaje
-                <textarea
-                  name="mensaje"
-                  rows={5}
-                  className="rounded-3xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
-                  placeholder="Cuéntanos qué necesitas proteger o qué tipo de cobertura estás buscando."
-                />
-              </label>
-
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <p className="max-w-md text-xs leading-6">
-                  Al enviar tus datos aceptas ser contactado para recibir asesoría
-                  sobre seguros. Puedes reemplazar este flujo por tu CRM cuando lo
-                  necesites.
+          <div id="formulario" className="scroll-mt-24 sm:scroll-mt-28">
+            <Reveal className="glass-panel p-5 sm:p-10" delay={120}>
+              <div className="max-w-2xl">
+                <h3 className="type-heading text-2xl">Solicitar asesoría</h3>
+                <p className="mt-3 text-sm leading-7">
+                  Formulario conectado a FormSubmit. Puedes cambiar este destino más
+                  adelante por tu CRM o servicio de email preferido sin tocar el diseño.
                 </p>
-                <button
-                  type="submit"
-                  className="button-primary w-full sm:w-auto"
-                  disabled={formState === "submitting"}
-                >
-                  {formState === "submitting" ? "Enviando..." : "Enviar solicitud"}
-                </button>
               </div>
 
-              {formState === "success" ? (
-                <div className="rounded-[24px] border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm leading-6 text-emerald-900">
-                  Tu solicitud fue enviada correctamente. Te contactaremos pronto para orientarte.
-                </div>
-              ) : null}
+              <form
+                action="https://formsubmit.co/camilo@symseguros.mx"
+                method="POST"
+                className="mt-6 grid gap-4 sm:mt-8 sm:gap-5"
+                onSubmit={handleSubmit}
+              >
+                <input type="hidden" name="_subject" value="Nuevo lead desde Camilo Manzur Seguros" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
 
-              {formState === "error" ? (
-                <div className="rounded-[24px] border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-900">
-                  No pudimos enviar tu solicitud en este momento. Intenta de nuevo o escríbenos por WhatsApp.
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <label className="grid gap-2 text-sm font-medium text-ink">
+                    Nombre
+                    <input
+                      type="text"
+                      name="nombre"
+                      required
+                      className="min-h-12 rounded-2xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
+                      placeholder="Tu nombre completo"
+                    />
+                  </label>
+
+                  <label className="grid gap-2 text-sm font-medium text-ink">
+                    Teléfono
+                    <input
+                      type="tel"
+                      name="telefono"
+                      required
+                      className="min-h-12 rounded-2xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
+                      placeholder="Tu número"
+                    />
+                  </label>
                 </div>
-              ) : null}
-            </form>
-          </Reveal>
+
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <label className="grid gap-2 text-sm font-medium text-ink">
+                    Email
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      className="min-h-12 rounded-2xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
+                      placeholder="tu@email.com"
+                    />
+                  </label>
+
+                  <label className="grid gap-2 text-sm font-medium text-ink">
+                    Tipo de seguro
+                    <select
+                      name="tipo_de_seguro"
+                      required
+                      className="min-h-12 rounded-2xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
+                      defaultValue=""
+                    >
+                      <option value="" disabled>
+                        Selecciona una opción
+                      </option>
+                      {formOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+
+                <label className="grid gap-2 text-sm font-medium text-ink">
+                  Mensaje
+                  <textarea
+                    name="mensaje"
+                    rows={5}
+                    className="rounded-3xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
+                    placeholder="Cuéntanos qué necesitas proteger o qué tipo de cobertura estás buscando."
+                  />
+                </label>
+
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="max-w-md text-xs leading-6">
+                    Al enviar tus datos aceptas ser contactado para recibir asesoría
+                    sobre seguros. Puedes reemplazar este flujo por tu CRM cuando lo
+                    necesites.
+                  </p>
+                  <button
+                    type="submit"
+                    className="button-primary w-full sm:w-auto"
+                    disabled={formState === "submitting"}
+                  >
+                    {formState === "submitting" ? "Enviando..." : "Enviar solicitud"}
+                  </button>
+                </div>
+
+                {formState === "success" ? (
+                  <div className="rounded-[24px] border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm leading-6 text-emerald-900">
+                    Tu solicitud fue enviada correctamente. Te contactaremos pronto para orientarte.
+                  </div>
+                ) : null}
+
+                {formState === "error" ? (
+                  <div className="rounded-[24px] border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-900">
+                    No pudimos enviar tu solicitud en este momento. Intenta de nuevo o escríbenos por WhatsApp.
+                  </div>
+                ) : null}
+              </form>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>
@@ -820,36 +822,24 @@ function Footer() {
 
 function FloatingWhatsapp() {
   return (
-    <a
-      href={whatsappHref}
-      target="_blank"
-      rel="noreferrer"
-      aria-label="Abrir WhatsApp"
-      className="fixed bottom-24 right-4 z-50 inline-flex items-center gap-3 rounded-full bg-[#17c45b] px-4 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#11af50] sm:bottom-5 sm:right-5 sm:px-5"
-    >
-      <MessageCircleIcon className="h-5 w-5" />
-      <span className="hidden sm:inline">WhatsApp</span>
-    </a>
-  );
-}
-
-function MobileStickyBar() {
-  return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-brand-navy/10 bg-white/96 px-4 pb-[calc(0.9rem+env(safe-area-inset-bottom))] pt-3 shadow-[0_-12px_30px_rgba(7,17,31,0.08)] backdrop-blur xl:hidden">
-      <div className="mx-auto grid max-w-7xl grid-cols-[1.5fr_1fr] gap-3">
-        <a
-          href={whatsappHref}
-          target="_blank"
-          rel="noreferrer"
-          className="button-whatsapp gap-2"
-        >
-          <MessageCircleIcon className="h-4 w-4" />
-          WhatsApp
-        </a>
-        <a href="#contacto" className="button-secondary">
-          Formulario
-        </a>
-      </div>
+    <div className="fixed bottom-4 right-4 z-50 flex items-center gap-3 sm:bottom-5 sm:right-5 xl:hidden">
+      <a
+        href="#formulario"
+        aria-label="Ir a cotizar"
+        className="inline-flex min-h-14 min-w-[9.5rem] items-center justify-center rounded-full border border-brand-navy/12 bg-white px-5 py-3 text-sm font-semibold text-brand-navy shadow-soft transition hover:-translate-y-0.5 hover:border-brand-navy/20"
+      >
+        Cotizar
+      </a>
+      <a
+        href={whatsappHref}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Abrir WhatsApp"
+        className="inline-flex min-h-14 min-w-[9.5rem] items-center justify-center gap-2 rounded-full bg-[#17c45b] px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#11af50]"
+      >
+        <MessageCircleIcon className="h-4 w-4" />
+        WhatsApp
+      </a>
     </div>
   );
 }
@@ -868,7 +858,6 @@ export function LandingPage() {
       </main>
       <Footer />
       <FloatingWhatsapp />
-      <MobileStickyBar />
     </div>
   );
 }
