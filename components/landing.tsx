@@ -181,7 +181,7 @@ function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-white/78 transition hover:text-white"
+              className="rounded-full px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10 hover:text-white"
             >
               {item.label}
             </a>
@@ -504,15 +504,16 @@ function PersonalSection() {
       <div className="container-shell">
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-8">
           <Reveal className="relative">
-            <div className="absolute inset-x-8 inset-y-10 rounded-[36px] bg-brand-navy/10 blur-3xl" />
+            <div className="absolute inset-x-8 inset-y-10 rounded-[36px] bg-brand-navy/16 blur-3xl" />
             <div className="glass-panel relative flex min-h-[320px] items-end overflow-hidden p-5 sm:min-h-[420px] sm:p-8">
-              <div className="absolute inset-0 bg-[linear-gradient(150deg,rgba(11,31,58,0.92),rgba(11,31,58,0.62),rgba(214,45,50,0.28))]" />
-              <div className="relative z-10 rounded-[26px] border border-white/20 bg-white/10 p-5 text-white backdrop-blur sm:rounded-[30px] sm:p-8">
-                <p className="text-sm uppercase tracking-[0.22em] text-white/70">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(214,45,50,0.28),transparent_34%),linear-gradient(150deg,rgba(7,20,39,0.98),rgba(11,31,58,0.86),rgba(11,31,58,0.72))]" />
+              <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(7,17,31,0.28),rgba(7,17,31,0))]" />
+              <div className="relative z-10 rounded-[26px] border border-white/28 bg-white/14 p-5 text-white shadow-[0_18px_45px_rgba(7,17,31,0.28)] backdrop-blur-md sm:rounded-[30px] sm:p-8">
+                <p className="text-sm uppercase tracking-[0.22em] text-white/82">
                   Foto placeholder
                 </p>
                 <h3 className="type-heading mt-3 text-2xl text-white sm:mt-4 sm:text-3xl">Camilo Manzur</h3>
-                <p className="mt-3 max-w-sm text-white/80">
+                <p className="mt-3 max-w-sm text-white/92">
                   Agente de seguros con más de 22 años ayudando a familias y empresas
                   a proteger su patrimonio.
                 </p>
@@ -617,6 +618,36 @@ function FAQSection() {
 }
 
 function ContactSection() {
+  const [formState, setFormState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setFormState("submitting");
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/camilo@symseguros.mx", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("FormSubmit rejected the request.");
+      }
+
+      setFormState("success");
+      form.reset();
+    } catch {
+      setFormState("error");
+    }
+  }
+
   return (
     <section id="contacto" className="section-gap pt-0">
       <div className="container-shell">
@@ -639,12 +670,12 @@ function ContactSection() {
                 className="flex min-h-16 items-center justify-between gap-4 rounded-[24px] border border-white/12 bg-white/10 px-4 py-4 transition hover:bg-white/15 sm:px-5"
               >
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="rounded-2xl bg-white/10 p-3">
+                  <div className="rounded-2xl bg-white/14 p-3">
                     <MessageCircleIcon className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-sm text-white/70">WhatsApp</p>
-                    <p className="text-sm font-semibold sm:text-base">Respuesta rápida para cotizar</p>
+                    <p className="text-sm text-white/82">WhatsApp</p>
+                    <p className="text-sm font-semibold text-white sm:text-base">Respuesta rápida para cotizar</p>
                   </div>
                 </div>
                 <ChevronRightIcon className="h-5 w-5" />
@@ -652,19 +683,19 @@ function ContactSection() {
 
               <div className="rounded-[24px] border border-white/12 bg-white/10 px-4 py-4 sm:px-5">
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="rounded-2xl bg-white/10 p-3">
+                  <div className="rounded-2xl bg-white/14 p-3">
                     <PhoneIcon className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-sm text-white/70">Teléfono</p>
-                    <p className="font-semibold">{siteConfig.phone}</p>
+                    <p className="text-sm text-white/82">Teléfono</p>
+                    <p className="font-semibold text-white">{siteConfig.phone}</p>
                   </div>
                 </div>
               </div>
 
               <div className="rounded-[24px] border border-white/12 bg-white/10 px-4 py-4 sm:px-5">
-                <p className="text-sm text-white/70">Cobertura</p>
-                <p className="mt-1 font-semibold">Atención en todo México desde Tampico, Tamaulipas</p>
+                <p className="text-sm text-white/82">Cobertura</p>
+                <p className="mt-1 font-semibold text-white">Atención en todo México desde Tampico, Tamaulipas</p>
               </div>
 
               <a
@@ -674,12 +705,12 @@ function ContactSection() {
                 className="flex min-h-16 items-center justify-between gap-4 rounded-[24px] border border-white/12 bg-white/10 px-4 py-4 transition hover:bg-white/15 sm:px-5"
               >
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="rounded-2xl bg-white/10 p-3">
+                  <div className="rounded-2xl bg-white/14 p-3">
                     <FacebookIcon className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-sm text-white/70">Facebook</p>
-                    <p className="text-sm font-semibold sm:text-base">Ver presencia y actividad</p>
+                    <p className="text-sm text-white/82">Facebook</p>
+                    <p className="text-sm font-semibold text-white sm:text-base">Ver presencia y actividad</p>
                   </div>
                 </div>
                 <ChevronRightIcon className="h-5 w-5" />
@@ -700,6 +731,7 @@ function ContactSection() {
               action="https://formsubmit.co/camilo@symseguros.mx"
               method="POST"
               className="mt-6 grid gap-4 sm:mt-8 sm:gap-5"
+              onSubmit={handleSubmit}
             >
               <input type="hidden" name="_subject" value="Nuevo lead desde Camilo Manzur Seguros" />
               <input type="hidden" name="_captcha" value="false" />
@@ -777,10 +809,26 @@ function ContactSection() {
                   sobre seguros. Puedes reemplazar este flujo por tu CRM cuando lo
                   necesites.
                 </p>
-                <button type="submit" className="button-primary w-full sm:w-auto">
-                  Enviar solicitud
+                <button
+                  type="submit"
+                  className="button-primary w-full sm:w-auto"
+                  disabled={formState === "submitting"}
+                >
+                  {formState === "submitting" ? "Enviando..." : "Enviar solicitud"}
                 </button>
               </div>
+
+              {formState === "success" ? (
+                <div className="rounded-[24px] border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm leading-6 text-emerald-900">
+                  Tu solicitud fue enviada correctamente. Te contactaremos pronto para orientarte.
+                </div>
+              ) : null}
+
+              {formState === "error" ? (
+                <div className="rounded-[24px] border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-900">
+                  No pudimos enviar tu solicitud en este momento. Intenta de nuevo o escríbenos por WhatsApp.
+                </div>
+              ) : null}
             </form>
           </Reveal>
         </div>
