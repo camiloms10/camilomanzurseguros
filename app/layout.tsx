@@ -5,6 +5,11 @@ import { siteConfig } from "@/lib/site-data";
 export const metadata: Metadata = {
   title: "Camilo Manzur Seguros | Cotiza tu seguro con asesoría personalizada",
   description: siteConfig.description,
+  icons: {
+    icon: siteConfig.logoPath,
+    shortcut: siteConfig.logoPath,
+    apple: siteConfig.logoPath,
+  },
   keywords: [
     "seguros en Mexico",
     "agente de seguros",
