@@ -498,104 +498,6 @@ function TrustSection() {
   );
 }
 
-function PersonalSection() {
-  const [logoMissing, setLogoMissing] = useState(false);
-
-  return (
-    <section className="section-gap pt-0">
-      <div className="container-shell">
-        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-8">
-          <Reveal className="relative">
-            <div className="absolute inset-x-8 inset-y-10 rounded-[36px] bg-brand-navy/16 blur-3xl" />
-            <div className="glass-panel relative overflow-hidden p-5 sm:min-h-[420px] sm:p-8">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(214,45,50,0.28),transparent_34%),linear-gradient(150deg,rgba(7,20,39,0.98),rgba(11,31,58,0.86),rgba(11,31,58,0.72))]" />
-              <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(7,17,31,0.28),rgba(7,17,31,0))]" />
-              <div className="relative z-10 flex h-full flex-col justify-between gap-6 sm:gap-8">
-                <div className="rounded-[26px] border border-white/28 bg-white/10 p-5 text-white shadow-[0_18px_45px_rgba(7,17,31,0.28)] backdrop-blur-md sm:rounded-[30px] sm:p-8">
-                  <p className="text-sm uppercase tracking-[0.22em] text-white/78">
-                    Camilo Manzur Seguros
-                  </p>
-
-                  <div className="mt-6 flex min-h-[112px] items-center justify-center rounded-[24px] border border-white/16 bg-white/8 p-6 sm:min-h-[140px]">
-                    {!logoMissing ? (
-                      <img
-                        src={siteConfig.logoPath}
-                        alt={siteConfig.name}
-                        className="max-h-24 w-auto object-contain sm:max-h-28"
-                        onError={() => setLogoMissing(true)}
-                      />
-                    ) : (
-                      <div className="text-center">
-                        <p className="text-3xl font-semibold tracking-[-0.05em] text-white sm:text-4xl">
-                          Camilo Manzur
-                        </p>
-                        <p className="mt-2 text-xs uppercase tracking-[0.22em] text-white/70 sm:text-sm">
-                          Agente de seguros
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  <p className="mt-6 text-base leading-7 text-white/88 sm:text-lg sm:leading-8">
-                    Asesoría clara, cercana y profesional para proteger tu patrimonio
-                    con criterio y seguimiento real.
-                  </p>
-                </div>
-
-                <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
-                  {stats.map((item) => (
-                    <div
-                      key={item.label}
-                      className="rounded-[24px] border border-white/18 bg-white/12 p-4 text-white backdrop-blur-md sm:p-5"
-                    >
-                      <p className="text-xl font-semibold tracking-[-0.04em] text-white sm:text-2xl">
-                        {item.value}
-                      </p>
-                      <p className="mt-2 text-sm leading-6 text-white/74">{item.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={100}>
-            <span className="eyebrow">Asesoría humana</span>
-            <h2 className="type-heading mt-5 text-3xl sm:mt-6 sm:text-4xl">
-              Una relación de confianza, no solo una cotización
-            </h2>
-            <p className="type-body mt-3 sm:mt-4 sm:text-lg sm:leading-8">
-              El enfoque de Camilo Manzur Seguros es acompañarte con claridad y
-              cercanía para que tomes una decisión bien informada. Aquí no se trata
-              de ofrecerte una póliza al azar, sino de entender qué quieres proteger
-              y ayudarte a elegir la cobertura adecuada.
-            </p>
-            <p className="type-body mt-3 sm:mt-4 sm:text-lg sm:leading-8">
-              Esa combinación de experiencia, seguimiento y trato personalizado es
-              la razón por la que tantos clientes vuelven para renovar, ajustar o
-              ampliar su protección con el tiempo.
-            </p>
-
-            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4">
-              <a
-                href={whatsappHref}
-                target="_blank"
-                rel="noreferrer"
-                className="button-whatsapp w-full sm:w-auto"
-              >
-                Hablar con Camilo
-              </a>
-              <a href="#contacto" className="button-secondary w-full sm:w-auto">
-                Dejar mis datos
-              </a>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function FAQSection() {
   const [active, setActive] = useState<number | null>(0);
 
@@ -961,7 +863,6 @@ export function LandingPage() {
         <Benefits />
         <InsuranceGrid />
         <TrustSection />
-        <PersonalSection />
         <FAQSection />
         <ContactSection />
       </main>
