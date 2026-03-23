@@ -476,18 +476,21 @@ function TrustSection() {
               {trustLogos.map((logo) => (
                 <div
                   key={logo.name}
-                  className="flex min-h-20 flex-col items-center justify-center gap-2 rounded-[22px] border border-brand-navy/8 bg-white px-3 py-4 text-center text-xs font-semibold text-brand-navy shadow-sm sm:min-h-24 sm:rounded-[24px] sm:px-4 sm:py-5 sm:text-sm"
+                  className="flex min-h-24 items-center justify-center rounded-[22px] border border-brand-navy/8 bg-white px-4 py-5 text-center shadow-sm sm:min-h-28 sm:rounded-[24px] sm:px-5 sm:py-6"
                 >
                   {logo.src ? (
-                    <img
-                      src={logo.src}
-                      alt={`Logo de ${logo.name}`}
-                      className={logo.logoClassName ?? "h-8 w-auto object-contain"}
-                    />
-                  ) : null}
-                  <span className={logo.src ? "text-[11px] sm:text-xs" : "text-sm sm:text-base"}>
-                    {logo.name}
-                  </span>
+                    <div className="flex h-14 w-full items-center justify-center sm:h-16">
+                      <img
+                        src={logo.src}
+                        alt={`Logo de ${logo.name}`}
+                        className={logo.logoClassName ?? "h-8 w-auto object-contain"}
+                      />
+                    </div>
+                  ) : (
+                    <span className="text-sm font-semibold text-brand-navy sm:text-base">
+                      {logo.name}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
