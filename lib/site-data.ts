@@ -106,7 +106,7 @@ type TrustLogo = {
 };
 
 export const trustLogos: TrustLogo[] = [
-  { name: "AXA", src: "/insurers/axa.png", logoClassName: "h-8 max-w-[3rem] object-contain" },
+  { name: "AXA", src: "/insurers/axa.png", logoClassName: "h-9 max-w-[3.4rem] object-contain" },
   { name: "HDI", src: "/insurers/hdi.png", logoClassName: "h-7 max-w-[6.5rem] object-contain" },
   { name: "GNP", src: "/insurers/gnp.svg", logoClassName: "h-8 max-w-[5.5rem] object-contain" },
   { name: "Zurich", src: "/insurers/zurich.svg", logoClassName: "h-8 max-w-[6rem] object-contain" },
@@ -118,12 +118,12 @@ export const trustLogos: TrustLogo[] = [
     logoClassName: "h-7 max-w-[6.5rem] object-contain",
   },
   { name: "Banorte", src: "/insurers/banorte.png", logoClassName: "h-9 max-w-[5.75rem] object-contain" },
-  { name: "Bupa", src: "/insurers/bupa.svg", logoClassName: "h-8 max-w-[6.25rem] object-contain" },
+  { name: "Bupa", src: "/insurers/bupa.svg", logoClassName: "h-9 max-w-[6.75rem] object-contain" },
   { name: "Chubb", src: "/insurers/chubb.png", logoClassName: "h-6 max-w-[6rem] object-contain" },
   { name: "Seguros Atlas", src: "/insurers/seguros-atlas.png", logoClassName: "h-6 max-w-[6rem] object-contain" },
   { name: "El Potosi", src: "/insurers/el-potosi.png", logoClassName: "h-7 max-w-[5.5rem] object-contain" },
   { name: "Afirme", src: "/insurers/afirme.png", logoClassName: "h-6 max-w-[6rem] object-contain" },
-  { name: "Plan Seguro", src: "/insurers/plan-seguro.png", logoClassName: "h-8 max-w-[6rem] object-contain" },
+  { name: "Plan Seguro", src: "/insurers/plan-seguro.png", logoClassName: "h-9 max-w-[6.5rem] object-contain" },
 ];
 
 export const faqs = [
