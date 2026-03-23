@@ -106,22 +106,22 @@ type TrustLogo = {
 };
 
 export const trustLogos: TrustLogo[] = [
-  { name: "AXA", src: "/insurers/axa.ico", logoClassName: "h-9 w-9 object-contain" },
-  { name: "HDI" },
+  { name: "AXA", src: "/insurers/axa.png", logoClassName: "h-9 w-auto object-contain" },
+  { name: "HDI", src: "/insurers/hdi.png", logoClassName: "h-8 w-auto object-contain" },
   { name: "GNP", src: "/insurers/gnp.svg", logoClassName: "h-9 w-auto object-contain" },
   { name: "Zurich", src: "/insurers/zurich.svg", logoClassName: "h-9 w-auto object-contain" },
   { name: "Mapfre", src: "/insurers/mapfre.png", logoClassName: "h-8 w-auto object-contain" },
-  { name: "Qualitas", src: "/insurers/qualitas.ico", logoClassName: "h-9 w-9 object-contain" },
+  { name: "Qualitas", src: "/insurers/qualitas.png", logoClassName: "h-9 w-auto object-contain" },
   {
     name: "Seguros Monterrey",
     src: "/insurers/seguros-monterrey.png",
     logoClassName: "h-9 w-auto object-contain",
   },
-  { name: "Banorte" },
+  { name: "Banorte", src: "/insurers/banorte.png", logoClassName: "h-8 w-auto object-contain" },
   { name: "Bupa", src: "/insurers/bupa.svg", logoClassName: "h-8 w-auto object-contain" },
   { name: "Chubb", src: "/insurers/chubb.png", logoClassName: "h-8 w-auto object-contain" },
-  { name: "Seguros Atlas" },
-  { name: "El Potosi" },
+  { name: "Seguros Atlas", src: "/insurers/seguros-atlas.png", logoClassName: "h-8 w-auto object-contain" },
+  { name: "El Potosi", src: "/insurers/el-potosi.png", logoClassName: "h-8 w-auto object-contain" },
   { name: "Afirme", src: "/insurers/afirme.png", logoClassName: "h-8 w-auto object-contain" },
   { name: "Plan Seguro", src: "/insurers/plan-seguro.png", logoClassName: "h-8 w-auto object-contain" },
 ];
