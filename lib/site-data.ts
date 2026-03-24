@@ -108,7 +108,7 @@ type TrustLogo = {
 };
 
 export const trustLogos: TrustLogo[] = [
-  { name: "AXA", src: "/insurers/axa.png", logoClassName: "object-contain", logoWidth: "41px", logoHeight: "24px" },
+  { name: "AXA", src: "/insurers/axa.png", logoClassName: "object-contain", logoWidth: "70px", logoHeight: "70px" },
   { name: "HDI", src: "/insurers/hdi.png", logoClassName: "h-7 max-w-[6.5rem] object-contain" },
   { name: "GNP", src: "/insurers/gnp.svg", logoClassName: "h-8 max-w-[5.5rem] object-contain" },
   { name: "Zurich", src: "/insurers/zurich.svg", logoClassName: "h-8 max-w-[6rem] object-contain" },
@@ -120,7 +120,7 @@ export const trustLogos: TrustLogo[] = [
     logoClassName: "h-7 max-w-[6.5rem] object-contain",
   },
   { name: "Banorte", src: "/insurers/banorte.png", logoClassName: "h-9 max-w-[5.75rem] object-contain" },
-  { name: "Bupa", src: "/insurers/bupa.svg", logoClassName: "object-contain", logoWidth: "86px", logoHeight: "24px" },
+  { name: "Bupa", src: "/insurers/bupa.svg", logoClassName: "object-contain", logoWidth: "70px", logoHeight: "70px" },
   { name: "Chubb", src: "/insurers/chubb.png", logoClassName: "h-6 max-w-[6rem] object-contain" },
   { name: "Seguros Atlas", src: "/insurers/seguros-atlas.png", logoClassName: "h-6 max-w-[6rem] object-contain" },
   { name: "El Potosi", src: "/insurers/el-potosi.png", logoClassName: "h-7 max-w-[5.5rem] object-contain" },
