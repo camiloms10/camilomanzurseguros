@@ -484,6 +484,10 @@ function TrustSection() {
                         src={logo.src}
                         alt={`Logo de ${logo.name}`}
                         className={logo.logoClassName ?? "h-8 w-auto object-contain"}
+                        style={{
+                          width: logo.logoWidth,
+                          height: logo.logoHeight,
+                        }}
                       />
                     </div>
                   ) : (
