@@ -17,7 +17,7 @@ import {
 export const siteConfig = {
   name: "Camilo Manzur Seguros",
   description:
-    "Asesoría personalizada en seguros para auto, gastos médicos, vida, hogar y empresas. Compara entre más de 14 aseguradoras y cotiza por WhatsApp en minutos.",
+    "Asesoría personalizada en seguros para auto, gastos médicos, vida, hogar y empresas. Compara entre 18 aseguradoras y cotiza por WhatsApp en minutos.",
   phone: "8331407662",
   email: "camilo@symseguros.mx",
   city: "Tampico, Tamaulipas",
@@ -33,9 +33,11 @@ export const navigation = [
   { label: "Contacto", href: "#contacto" },
 ];
 
+export const insurerCount = 18;
+
 export const stats = [
   { value: "22 años", label: "asesorando a familias y empresas en México" },
-  { value: "+14 aseguradoras", label: "para comparar cobertura, servicio y costo" },
+  { value: `+${insurerCount} aseguradoras`, label: "para comparar cobertura, servicio y costo" },
   { value: "Atención nacional", label: "acompañamiento profesional en todo México" },
 ];
 
@@ -109,10 +111,14 @@ type TrustLogo = {
 
 export const trustLogos: TrustLogo[] = [
   { name: "AXA", src: "/insurers/axa.png", logoClassName: "object-contain", logoWidth: "70px", logoHeight: "70px" },
+  { name: "ANA Seguros", src: "/insurers/ana-seguros.png", logoClassName: "h-8 max-w-[6rem] object-contain" },
   { name: "HDI", src: "/insurers/hdi.png", logoClassName: "h-7 max-w-[6.5rem] object-contain" },
+  { name: "GMX Seguros", src: "/insurers/gmx-seguros.webp", logoClassName: "h-8 max-w-[5rem] object-contain" },
   { name: "GNP", src: "/insurers/gnp.svg", logoClassName: "h-8 max-w-[5.5rem] object-contain" },
+  { name: "Inbursa", src: "/insurers/inbursa.png", logoClassName: "h-9 max-w-[4.5rem] object-contain" },
   { name: "Zurich", src: "/insurers/zurich.svg", logoClassName: "h-8 max-w-[6rem] object-contain" },
   { name: "Mapfre", src: "/insurers/mapfre.png", logoClassName: "h-6 max-w-[6rem] object-contain" },
+  { name: "MetLife", src: "/insurers/metlife.png", logoClassName: "h-7 max-w-[6rem] object-contain" },
   { name: "Qualitas", src: "/insurers/qualitas.png", logoClassName: "h-9 max-w-[4.75rem] object-contain" },
   {
     name: "Seguros Monterrey",

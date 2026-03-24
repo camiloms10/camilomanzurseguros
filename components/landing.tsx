@@ -17,6 +17,7 @@ import {
   faqs,
   formOptions,
   heroHighlights,
+  insurerCount,
   insuranceTypes,
   navigation,
   siteConfig,
@@ -244,7 +245,7 @@ function Hero() {
               <span className="text-brand-red">lo que más importa</span>
             </h1>
             <p className="type-body mt-5 max-w-2xl sm:mt-6 sm:text-xl sm:leading-8">
-              Te ayudamos a encontrar el seguro ideal entre más de 14 aseguradoras
+              Te ayudamos a encontrar el seguro ideal entre {insurerCount} aseguradoras
               con atención personalizada, claridad y seguimiento durante todo el
               proceso.
             </p>
@@ -447,7 +448,7 @@ function TrustSection() {
                 Más de 22 años de experiencia comparando opciones con criterio
               </h2>
               <p className="type-body mt-3 sm:mt-4 sm:text-lg">
-                Cotizamos en más de 14 aseguradoras para ayudarte a encontrar la
+                Cotizamos en {insurerCount} aseguradoras para ayudarte a encontrar la
                 combinación correcta entre cobertura, servicio y precio. Miles de
                 clientes han recibido asesoría con atención cercana y profesional.
               </p>
