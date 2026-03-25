@@ -19,8 +19,8 @@ export const siteConfig = {
   description:
     "Asesoría personalizada en seguros para auto, gastos médicos, vida, hogar y empresas. Compara entre 18 aseguradoras y cotiza por WhatsApp en minutos.",
   siteUrl: "https://www.camilomanzurseguros.com",
-  officeName: "Solbes y Manzur",
-  officeLabel: "En Solbes y Manzur",
+  officeName: "Solbes & Manzur",
+  officeLabel: "En Solbes & Manzur",
   officeMapUrl: "https://maps.app.goo.gl/uXhuKp1SDmuGzWGa7",
   officeMapEmbedUrl: "https://www.google.com/maps?q=22.2573419,-97.871416&z=17&output=embed",
   phone: "8331407662",
