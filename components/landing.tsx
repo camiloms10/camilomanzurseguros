@@ -139,7 +139,7 @@ function BrandMarkHeader() {
               </span>
               <a
                 href="#ubicacion"
-                className="mt-1 self-center text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
+                className="mt-1 text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
               >
                 {siteConfig.officeLabel}
               </a>
@@ -157,7 +157,7 @@ function BrandMarkHeader() {
           </span>
           <a
             href="#ubicacion"
-            className="mt-1 self-center text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
+            className="mt-1 text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
           >
             {siteConfig.officeLabel}
           </a>
