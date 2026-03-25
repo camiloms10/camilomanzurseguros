@@ -25,7 +25,42 @@ import {
   trustLogos,
 } from "@/lib/site-data";
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 const whatsappHref = `https://wa.me/52${siteConfig.phone}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`;
+const phoneHref = `tel:${siteConfig.phone}`;
+const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+const whatsappConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL_WHATSAPP;
+const formConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL_FORM;
+const callConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL_CALL;
+
+function trackConversion(label?: string, eventName = "generate_lead") {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+
+  const params: Record<string, unknown> = {
+    event_category: "lead",
+    value: 1,
+    currency: "MXN",
+  };
+
+  if (googleAdsId && label) {
+    params.send_to = `${googleAdsId}/${label}`;
+  }
+
+  window.gtag("event", eventName, params);
+}
+
+function trackWhatsappClick() {
+  trackConversion(whatsappConversionLabel, "contact");
+}
+
+function trackCallClick() {
+  trackConversion(callConversionLabel, "phone_call");
+}
 
 function Reveal({
   children,
@@ -239,15 +274,15 @@ function Hero() {
       <div className="container-shell">
         <div className="grid items-center gap-7 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
           <Reveal>
-            <span className="eyebrow">Asesoría en seguros en todo México</span>
+            <span className="eyebrow">Cotiza tu seguro con asesoría personalizada</span>
             <h1 className="type-display mt-5 max-w-3xl text-[2.65rem] leading-[0.96] sm:mt-6 sm:text-6xl lg:text-7xl">
-              22 años protegiendo{" "}
-              <span className="text-brand-red">lo que más importa</span>
+              Cotiza tu seguro comparando{" "}
+              <span className="text-brand-red">{insurerCount} aseguradoras</span>
             </h1>
             <p className="type-body mt-5 max-w-2xl sm:mt-6 sm:text-xl sm:leading-8">
-              Te ayudamos a encontrar el seguro ideal entre {insurerCount} aseguradoras
-              con atención personalizada, claridad y seguimiento durante todo el
-              proceso.
+              Te ayudamos a cotizar seguro de auto, gastos médicos, vida, hogar y
+              empresas con opciones claras, atención rápida y acompañamiento humano
+              durante todo el proceso.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
@@ -256,12 +291,13 @@ function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 className="button-whatsapp w-full gap-2 sm:w-auto"
+                onClick={trackWhatsappClick}
               >
                 Cotizar por WhatsApp
                 <MessageCircleIcon className="h-4 w-4" />
               </a>
               <a href="#formulario" className="button-secondary w-full gap-2 sm:w-auto">
-                Solicitar asesoría
+                Cotizar con formulario
                 <ArrowRightIcon className="h-4 w-4" />
               </a>
             </div>
@@ -527,6 +563,7 @@ function FAQSection() {
               target="_blank"
               rel="noreferrer"
               className="button-whatsapp mt-6 inline-flex w-full sm:mt-8 sm:w-auto"
+              onClick={trackWhatsappClick}
             >
               Resolver por WhatsApp
             </a>
@@ -589,6 +626,7 @@ function ContactSection() {
         throw new Error("FormSubmit rejected the request.");
       }
 
+      trackConversion(formConversionLabel);
       setFormState("success");
       form.reset();
     } catch {
@@ -616,6 +654,7 @@ function ContactSection() {
                 target="_blank"
                 rel="noreferrer"
                 className="flex min-h-16 items-center justify-between gap-4 rounded-[24px] border border-white/12 bg-white/10 px-4 py-4 transition hover:bg-white/15 sm:px-5"
+                onClick={trackWhatsappClick}
               >
                 <div className="flex items-center gap-3 sm:gap-4">
                   <div className="rounded-2xl bg-white/14 p-3">
@@ -629,7 +668,11 @@ function ContactSection() {
                 <ChevronRightIcon className="h-5 w-5" />
               </a>
 
-              <div className="rounded-[24px] border border-white/12 bg-white/10 px-4 py-4 sm:px-5">
+              <a
+                href={phoneHref}
+                className="block rounded-[24px] border border-white/12 bg-white/10 px-4 py-4 transition hover:bg-white/15 sm:px-5"
+                onClick={trackCallClick}
+              >
                 <div className="flex items-center gap-3 sm:gap-4">
                   <div className="rounded-2xl bg-white/14 p-3">
                     <PhoneIcon className="h-5 w-5" />
@@ -639,7 +682,7 @@ function ContactSection() {
                     <p className="font-semibold text-white">{siteConfig.phone}</p>
                   </div>
                 </div>
-              </div>
+              </a>
 
               <div className="rounded-[24px] border border-white/12 bg-white/10 px-4 py-4 sm:px-5">
                 <p className="text-sm text-white/82">Cobertura</p>
@@ -671,8 +714,8 @@ function ContactSection() {
               <div className="max-w-2xl">
                 <h3 className="type-heading text-2xl">Solicitar asesoría</h3>
                 <p className="mt-3 text-sm leading-7">
-                  Formulario conectado a FormSubmit. Puedes cambiar este destino más
-                  adelante por tu CRM o servicio de email preferido sin tocar el diseño.
+                  Déjanos tus datos y te ayudamos a cotizar la opción que mejor se
+                  ajuste a lo que quieres proteger.
                 </p>
               </div>
 
@@ -685,6 +728,7 @@ function ContactSection() {
                 <input type="hidden" name="_subject" value="Nuevo lead desde Camilo Manzur Seguros" />
                 <input type="hidden" name="_captcha" value="false" />
                 <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_source" value="Landing Camilo Manzur Seguros" />
 
                 <div className="grid gap-5 sm:grid-cols-2">
                   <label className="grid gap-2 text-sm font-medium text-ink">
@@ -710,53 +754,29 @@ function ContactSection() {
                   </label>
                 </div>
 
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <label className="grid gap-2 text-sm font-medium text-ink">
-                    Email
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      className="min-h-12 rounded-2xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
-                      placeholder="tu@email.com"
-                    />
-                  </label>
-
-                  <label className="grid gap-2 text-sm font-medium text-ink">
-                    Tipo de seguro
-                    <select
-                      name="tipo_de_seguro"
-                      required
-                      className="min-h-12 rounded-2xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
-                      defaultValue=""
-                    >
-                      <option value="" disabled>
-                        Selecciona una opción
-                      </option>
-                      {formOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                </div>
-
                 <label className="grid gap-2 text-sm font-medium text-ink">
-                  Mensaje
-                  <textarea
-                    name="mensaje"
-                    rows={5}
-                    className="rounded-3xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
-                    placeholder="Cuéntanos qué necesitas proteger o qué tipo de cobertura estás buscando."
-                  />
+                  Tipo de seguro
+                  <select
+                    name="tipo_de_seguro"
+                    required
+                    className="min-h-12 rounded-2xl border border-brand-navy/12 bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-brand-red"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Selecciona una opción
+                    </option>
+                    {formOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
                 </label>
 
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <p className="max-w-md text-xs leading-6">
-                    Al enviar tus datos aceptas ser contactado para recibir asesoría
-                    sobre seguros. Puedes reemplazar este flujo por tu CRM cuando lo
-                    necesites.
+                    Déjanos tu nombre, teléfono y tipo de seguro. Te contactamos para
+                    ayudarte a cotizar sin compromiso.
                   </p>
                   <button
                     type="submit"
@@ -844,6 +864,7 @@ function FloatingWhatsapp() {
         rel="noreferrer"
         aria-label="Abrir WhatsApp"
         className="inline-flex min-h-14 min-w-[9.5rem] items-center justify-center gap-2 rounded-full bg-[#17c45b] px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#11af50]"
+        onClick={trackWhatsappClick}
       >
         <MessageCircleIcon className="h-4 w-4" />
         WhatsApp

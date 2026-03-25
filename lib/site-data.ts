@@ -18,6 +18,7 @@ export const siteConfig = {
   name: "Camilo Manzur Seguros",
   description:
     "Asesoría personalizada en seguros para auto, gastos médicos, vida, hogar y empresas. Compara entre 18 aseguradoras y cotiza por WhatsApp en minutos.",
+  siteUrl: "https://www.camilomanzurseguros.com",
   phone: "8331407662",
   email: "camilo@symseguros.mx",
   city: "Tampico, Tamaulipas",
