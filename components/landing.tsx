@@ -130,37 +130,41 @@ function BrandMarkHeader() {
             </svg>
           </div>
           <div className="min-w-0">
-            <div className="flex flex-col leading-none">
+            <div className="flex flex-col leading-none sm:flex-row sm:items-start sm:gap-3">
               <span className="truncate text-[1.55rem] font-semibold tracking-[-0.04em] text-white sm:text-[2rem]">
                 Camilo Manzur
               </span>
-              <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:text-[0.78rem]">
-                Agente de Seguros
-              </span>
-              <a
-                href="#ubicacion"
-                className="mt-1 text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
-              >
-                {siteConfig.officeLabel}
-              </a>
+              <div className="sm:mt-[0.35rem]">
+                <span className="mt-1 block text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:mt-0 sm:text-[0.78rem]">
+                  Agente de Seguros
+                </span>
+                <a
+                  href="#ubicacion"
+                  className="mt-1 block text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
+                >
+                  {siteConfig.officeLabel}
+                </a>
+              </div>
             </div>
           </div>
         </div>
       )}
       <div className="min-w-0">
-        <div className="flex flex-col leading-none">
+        <div className="flex flex-col leading-none sm:flex-row sm:items-start sm:gap-3">
           <span className="truncate text-[1.55rem] font-semibold tracking-[-0.04em] text-white sm:text-[2rem]">
             Camilo Manzur
           </span>
-          <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:text-[0.78rem]">
-            Agente de Seguros
-          </span>
-          <a
-            href="#ubicacion"
-            className="mt-1 text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
-          >
-            {siteConfig.officeLabel}
-          </a>
+          <div className="sm:mt-[0.35rem]">
+            <span className="mt-1 block text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:mt-0 sm:text-[0.78rem]">
+              Agente de Seguros
+            </span>
+            <a
+              href="#ubicacion"
+              className="mt-1 block text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
+            >
+              {siteConfig.officeLabel}
+            </a>
+          </div>
         </div>
       </div>
     </div>
