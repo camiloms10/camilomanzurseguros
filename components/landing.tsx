@@ -130,25 +130,37 @@ function BrandMarkHeader() {
             </svg>
           </div>
           <div className="min-w-0">
-            <div className="flex flex-col leading-none sm:flex-row sm:items-end sm:gap-3">
+            <div className="flex flex-col leading-none">
               <span className="truncate text-[1.55rem] font-semibold tracking-[-0.04em] text-white sm:text-[2rem]">
                 Camilo Manzur
               </span>
-              <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:mb-[0.28rem] sm:mt-0 sm:text-[0.78rem]">
+              <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:text-[0.78rem]">
                 Agente de Seguros
               </span>
+              <a
+                href="#ubicacion"
+                className="mt-1 self-center text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
+              >
+                {siteConfig.officeLabel}
+              </a>
             </div>
           </div>
         </div>
       )}
       <div className="min-w-0">
-        <div className="flex flex-col leading-none sm:flex-row sm:items-end sm:gap-3">
+        <div className="flex flex-col leading-none">
           <span className="truncate text-[1.55rem] font-semibold tracking-[-0.04em] text-white sm:text-[2rem]">
             Camilo Manzur
           </span>
-          <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:mb-[0.28rem] sm:mt-0 sm:text-[0.78rem]">
+          <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:text-[0.78rem]">
             Agente de Seguros
           </span>
+          <a
+            href="#ubicacion"
+            className="mt-1 self-center text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
+          >
+            {siteConfig.officeLabel}
+          </a>
         </div>
       </div>
     </div>
@@ -542,6 +554,67 @@ function TrustSection() {
   );
 }
 
+function LocationSection() {
+  return (
+    <section id="ubicacion" className="section-gap scroll-mt-24 pt-0 sm:scroll-mt-28">
+      <div className="container-shell">
+        <Reveal className="glass-panel overflow-hidden p-5 sm:p-10">
+          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-8">
+            <div>
+              <span className="eyebrow">Ubicación</span>
+              <h2 className="type-heading mt-5 text-3xl sm:mt-6 sm:text-4xl">
+                También puedes visitarnos en oficina
+              </h2>
+              <p className="type-body mt-3 sm:mt-4 sm:text-lg">
+                Atendemos en {siteConfig.officeName}, en {siteConfig.city}. Si prefieres
+                ubicar la oficina primero, aquí tienes el mapa directo.
+              </p>
+
+              <div className="mt-6 rounded-[28px] border border-brand-navy/10 bg-white p-5 shadow-sm sm:mt-8 sm:p-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-navy/60">
+                  Oficina
+                </p>
+                <p className="mt-2 type-subheading text-xl text-brand-navy">
+                  {siteConfig.officeName}
+                </p>
+                <p className="mt-2 text-sm leading-7 text-slate">
+                  {siteConfig.city}
+                </p>
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href={siteConfig.officeMapUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="button-secondary w-full sm:w-auto"
+                  >
+                    Ver en Google Maps
+                  </a>
+                  <a
+                    href="#formulario"
+                    className="button-whatsapp w-full sm:w-auto"
+                  >
+                    Cotizar ahora
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-[28px] border border-brand-navy/10 bg-white shadow-card">
+              <iframe
+                title={`Mapa de ${siteConfig.officeName}`}
+                src={siteConfig.officeMapEmbedUrl}
+                className="h-[320px] w-full sm:h-[420px]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 function FAQSection() {
   const [active, setActive] = useState<number | null>(0);
 
@@ -882,6 +955,7 @@ export function LandingPage() {
         <Benefits />
         <InsuranceGrid />
         <TrustSection />
+        <LocationSection />
         <FAQSection />
         <ContactSection />
       </main>
