@@ -24,52 +24,10 @@ import {
   stats,
   trustLogos,
 } from "@/lib/site-data";
-
-declare global {
-  interface Window {
-    gtag?: (...args: unknown[]) => void;
-  }
-}
+import { trackLead } from "@/lib/tracking";
 
 const whatsappHref = `https://wa.me/52${siteConfig.phone}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`;
 const phoneHref = `tel:${siteConfig.phone}`;
-const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID;
-const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
-const whatsappConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL_WHATSAPP;
-const formConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL_FORM;
-const callConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL_CALL;
-
-function trackConversion(label?: string, eventName = "generate_lead") {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-
-  const params: Record<string, unknown> = {
-    event_category: "lead",
-    value: 1,
-    currency: "MXN",
-  };
-
-  if (googleTagId) {
-    params.send_to = googleTagId;
-  }
-
-  window.gtag("event", eventName, params);
-
-  if (googleAdsId && label) {
-    window.gtag("event", "conversion", {
-      send_to: `${googleAdsId}/${label}`,
-      value: 1,
-      currency: "MXN",
-    });
-  }
-}
-
-function trackWhatsappClick() {
-  trackConversion(whatsappConversionLabel, "contact");
-}
-
-function trackCallClick() {
-  trackConversion(callConversionLabel, "phone_call");
-}
 
 function Reveal({
   children,
@@ -250,8 +208,14 @@ function Header() {
         </nav>
 
         <div className="hidden lg:flex">
-          <a href={whatsappHref} target="_blank" rel="noreferrer" className="button-whatsapp">
-            Cotizar ahora
+          <a
+            href={whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            className="button-whatsapp"
+            onClick={() => trackLead({ channel: "whatsapp", location: "header" })}
+          >
+            Cotizar por WhatsApp
           </a>
         </div>
 
@@ -283,8 +247,9 @@ function Header() {
               target="_blank"
               rel="noreferrer"
               className="button-whatsapp w-full"
+              onClick={() => trackLead({ channel: "whatsapp", location: "mobile_menu" })}
             >
-              Cotizar ahora
+              Cotizar por WhatsApp
             </a>
           </div>
         </div>
@@ -299,15 +264,15 @@ function Hero() {
       <div className="container-shell">
         <div className="grid items-center gap-7 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
           <Reveal>
-            <span className="eyebrow">Cotiza tu seguro con asesoría personalizada</span>
+            <span className="eyebrow">Respuesta rápida, comparación real y asesoría humana</span>
             <h1 className="type-display mt-5 max-w-3xl text-[2.65rem] leading-[0.96] sm:mt-6 sm:text-6xl lg:text-7xl">
-              Cotiza tu seguro comparando{" "}
+              Cotiza tu seguro con asesoría personalizada y comparación entre{" "}
               <span className="text-brand-red">{insurerCount} aseguradoras</span>
             </h1>
             <p className="type-body mt-5 max-w-2xl sm:mt-6 sm:text-xl sm:leading-8">
               Te ayudamos a cotizar seguro de auto, gastos médicos, vida, hogar y
-              empresas con opciones claras, atención rápida y acompañamiento humano
-              durante todo el proceso.
+              empresas con opciones claras, atención rápida por WhatsApp y acompañamiento humano
+              para tomar una mejor decisión.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
@@ -316,21 +281,21 @@ function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 className="button-whatsapp w-full gap-2 sm:w-auto"
-                onClick={trackWhatsappClick}
+                onClick={() => trackLead({ channel: "whatsapp", location: "hero" })}
               >
                 Cotizar por WhatsApp
                 <MessageCircleIcon className="h-4 w-4" />
               </a>
               <a href="#formulario" className="button-secondary w-full gap-2 sm:w-auto">
-                Cotizar con formulario
+                Dejar mis datos
                 <ArrowRightIcon className="h-4 w-4" />
               </a>
             </div>
 
             <div className="mt-4 flex items-center gap-2 rounded-2xl border border-brand-navy/10 bg-white/75 px-4 py-3 text-sm text-brand-navy shadow-sm sm:hidden">
               <MessageCircleIcon className="h-4 w-4 flex-none text-[#17c45b]" />
-              <p className="text-sm leading-6 text-brand-navy">
-                La forma más rápida de cotizar es por WhatsApp.
+                    <p className="text-sm leading-6 text-brand-navy">
+                La forma más rápida de cotizar es por WhatsApp, sin compromiso.
               </p>
             </div>
 
@@ -394,7 +359,7 @@ function Hero() {
                       Contacto directo
                     </p>
                     <p className="type-subheading mt-2 text-lg text-white sm:text-xl">
-                      Habla con Camilo y recibe orientación clara desde el primer mensaje.
+                      Habla con Camilo y empieza tu cotización con respuesta rápida.
                     </p>
                   </div>
                   <a
@@ -402,8 +367,9 @@ function Hero() {
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-brand-navy transition hover:bg-brand-sky"
+                    onClick={() => trackLead({ channel: "whatsapp", location: "hero_contact_card" })}
                   >
-                    Escribir ahora
+                    Cotizar por WhatsApp
                     <ChevronRightIcon className="h-4 w-4" />
                   </a>
                 </div>
@@ -479,15 +445,32 @@ function InsuranceGrid() {
                 </div>
                 <h3 className="type-subheading mt-5 text-xl sm:text-2xl">{insurance.title}</h3>
                 <p className="mt-2.5 flex-1 text-sm leading-7">{insurance.description}</p>
-                <a
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-navy transition group-hover:gap-3 sm:mt-6"
-                >
-                  Cotizar
-                  <ArrowRightIcon className="h-4 w-4" />
-                </a>
+                {insurance.pageHref ? (
+                  <a
+                    href={insurance.pageHref}
+                    className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-navy transition group-hover:gap-3 sm:mt-6"
+                  >
+                    Ver opciones
+                    <ArrowRightIcon className="h-4 w-4" />
+                  </a>
+                ) : (
+                  <a
+                    href={whatsappHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-navy transition group-hover:gap-3 sm:mt-6"
+                    onClick={() =>
+                      trackLead({
+                        channel: "whatsapp",
+                        location: `insurance_grid_${insurance.title.toLowerCase().replaceAll(" ", "_")}`,
+                        insuranceType: insurance.title,
+                      })
+                    }
+                  >
+                    Cotizar por WhatsApp
+                    <ArrowRightIcon className="h-4 w-4" />
+                  </a>
+                )}
               </Reveal>
             );
           })}
@@ -514,7 +497,7 @@ function TrustSection() {
                 clientes han recibido asesoría con atención cercana y profesional.
               </p>
 
-              <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4">
+              <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-3 sm:gap-4">
                 <div className="rounded-3xl bg-brand-navy p-4 text-white sm:p-5">
                   <p className="text-sm uppercase tracking-[0.18em] text-white/70">
                     Cobertura nacional
@@ -529,6 +512,14 @@ function TrustSection() {
                   </p>
                   <p className="type-subheading mt-2 text-lg text-brand-navy sm:text-xl">
                     Comparación, orientación y seguimiento en renovaciones.
+                  </p>
+                </div>
+                <div className="rounded-3xl border border-brand-navy/10 bg-white p-4 sm:p-5">
+                  <p className="text-sm uppercase tracking-[0.18em] text-brand-navy">
+                    Sin compromiso
+                  </p>
+                  <p className="type-subheading mt-2 text-lg text-brand-navy sm:text-xl">
+                    Puedes cotizar, comparar y decidir con calma antes de contratar.
                   </p>
                 </div>
               </div>
@@ -606,7 +597,7 @@ function LocationSection() {
                     href="#formulario"
                     className="button-whatsapp w-full sm:w-auto"
                   >
-                    Cotizar ahora
+                    Dejar mis datos
                   </a>
                 </div>
               </div>
@@ -649,9 +640,9 @@ function FAQSection() {
               target="_blank"
               rel="noreferrer"
               className="button-whatsapp mt-6 inline-flex w-full sm:mt-8 sm:w-auto"
-              onClick={trackWhatsappClick}
+              onClick={() => trackLead({ channel: "whatsapp", location: "faq" })}
             >
-              Resolver por WhatsApp
+              Cotizar por WhatsApp
             </a>
           </Reveal>
 
@@ -712,7 +703,7 @@ function ContactSection() {
         throw new Error("FormSubmit rejected the request.");
       }
 
-      trackConversion(formConversionLabel);
+      trackLead({ channel: "form", location: "home_form" });
       setFormState("success");
       form.reset();
     } catch {
@@ -740,7 +731,7 @@ function ContactSection() {
                 target="_blank"
                 rel="noreferrer"
                 className="flex min-h-16 items-center justify-between gap-4 rounded-[24px] border border-white/12 bg-white/10 px-4 py-4 transition hover:bg-white/15 sm:px-5"
-                onClick={trackWhatsappClick}
+                onClick={() => trackLead({ channel: "whatsapp", location: "contact_card" })}
               >
                 <div className="flex items-center gap-3 sm:gap-4">
                   <div className="rounded-2xl bg-white/14 p-3">
@@ -757,7 +748,7 @@ function ContactSection() {
               <a
                 href={phoneHref}
                 className="block rounded-[24px] border border-white/12 bg-white/10 px-4 py-4 transition hover:bg-white/15 sm:px-5"
-                onClick={trackCallClick}
+                onClick={() => trackLead({ channel: "phone", location: "contact_phone" })}
               >
                 <div className="flex items-center gap-3 sm:gap-4">
                   <div className="rounded-2xl bg-white/14 p-3">
@@ -798,10 +789,10 @@ function ContactSection() {
           <div id="formulario" className="scroll-mt-24 sm:scroll-mt-28">
             <Reveal className="glass-panel p-5 sm:p-10" delay={120}>
               <div className="max-w-2xl">
-                <h3 className="type-heading text-2xl">Solicitar asesoría</h3>
+                <h3 className="type-heading text-2xl">Dejar mis datos</h3>
                 <p className="mt-3 text-sm leading-7">
                   Déjanos tus datos y te ayudamos a cotizar la opción que mejor se
-                  ajuste a lo que quieres proteger.
+                  ajuste a lo que quieres proteger, sin compromiso.
                 </p>
               </div>
 
@@ -869,7 +860,7 @@ function ContactSection() {
                     className="button-primary w-full sm:w-auto"
                     disabled={formState === "submitting"}
                   >
-                    {formState === "submitting" ? "Enviando..." : "Enviar solicitud"}
+                    {formState === "submitting" ? "Enviando..." : "Dejar mis datos"}
                   </button>
                 </div>
 
@@ -950,7 +941,7 @@ function FloatingWhatsapp() {
         rel="noreferrer"
         aria-label="Abrir WhatsApp"
         className="inline-flex min-h-14 min-w-[9.5rem] items-center justify-center gap-2 rounded-full bg-[#17c45b] px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#11af50]"
-        onClick={trackWhatsappClick}
+        onClick={() => trackLead({ channel: "whatsapp", location: "floating_whatsapp" })}
       >
         <MessageCircleIcon className="h-4 w-4" />
         WhatsApp

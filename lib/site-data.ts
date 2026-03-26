@@ -78,16 +78,19 @@ export const insuranceTypes = [
     title: "Seguro de auto",
     description: "Protección para tu vehículo con coberturas claras y opciones competitivas entre distintas aseguradoras.",
     icon: CarFrontIcon,
+    pageHref: "/seguro-de-auto",
   },
   {
     title: "Gastos médicos",
     description: "Alternativas para cuidar tu salud, acceso hospitalario y respaldo financiero ante imprevistos médicos.",
     icon: HeartPulseIcon,
+    pageHref: "/gastos-medicos",
   },
   {
     title: "Seguro de vida",
     description: "Soluciones para proteger a tu familia, tu patrimonio y la tranquilidad de quienes dependen de ti.",
     icon: ShieldCheckIcon,
+    pageHref: "/seguro-de-vida",
   },
   {
     title: "Seguro de hogar",
@@ -98,6 +101,7 @@ export const insuranceTypes = [
     title: "Seguro de empresas",
     description: "Opciones para negocios y empresas que buscan continuidad operativa y protección patrimonial.",
     icon: Building2Icon,
+    pageHref: "/seguro-de-empresas",
   },
   {
     title: "Ahorro y retiro",
@@ -164,17 +168,17 @@ export const faqs = [
 
 export const heroHighlights = [
   {
-    title: "Respuesta ágil",
-    description: "Impulsado por WhatsApp para convertir visitas en conversaciones reales.",
+    title: "Respuesta rápida por WhatsApp",
+    description: "La vía más directa para pasar de visita a conversación y cotización.",
     icon: ArrowRightIcon,
   },
   {
-    title: "Coberturas a tu medida",
-    description: "Comparación profesional con enfoque humano, no automatizado.",
+    title: "Comparación entre aseguradoras",
+    description: "Acompañamiento profesional para ayudarte a elegir mejor cobertura.",
     icon: WalletCardsIcon,
   },
   {
-    title: "Acompañamiento continuo",
+    title: "Seguimiento real",
     description: "Asesoría antes, durante y después de contratar tu seguro.",
     icon: LifeBuoyIcon,
   },
