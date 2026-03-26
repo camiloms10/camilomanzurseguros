@@ -39,45 +39,14 @@ const whatsappConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LA
 const formConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL_FORM;
 const callConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL_CALL;
 
-function emitTrackingDebug(detail: Record<string, unknown>) {
-  if (typeof window === "undefined") return;
-
-  window.dispatchEvent(
-    new CustomEvent("tracking-debug", {
-      detail: {
-        timestamp: new Date().toLocaleTimeString("es-MX", { hour12: false }),
-        ...detail,
-      },
-    }),
-  );
-}
-
-function isTrackingDebugEnabled() {
-  if (typeof window === "undefined") return false;
-  return new URLSearchParams(window.location.search).get("debug_tracking") === "1";
-}
-
 function trackConversion(label?: string, eventName = "generate_lead") {
-  if (typeof window === "undefined") return;
-
-  emitTrackingDebug({
-    type: "attempt",
-    eventName,
-    hasLabel: Boolean(label),
-    gtagAvailable: typeof window.gtag === "function",
-  });
-
-  if (typeof window.gtag !== "function") return;
+  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
 
   const params: Record<string, unknown> = {
     event_category: "lead",
     value: 1,
     currency: "MXN",
   };
-
-  if (isTrackingDebugEnabled()) {
-    params.debug_mode = true;
-  }
 
   if (googleTagId) {
     params.send_to = googleTagId;
@@ -92,13 +61,6 @@ function trackConversion(label?: string, eventName = "generate_lead") {
       currency: "MXN",
     });
   }
-
-  emitTrackingDebug({
-    type: "sent",
-    eventName,
-    analyticsTarget: googleTagId ?? "missing",
-    adsTarget: googleAdsId && label ? `${googleAdsId}/${label}` : "missing",
-  });
 }
 
 function trackWhatsappClick() {
@@ -997,114 +959,6 @@ function FloatingWhatsapp() {
   );
 }
 
-function TrackingDebugPanel() {
-  const [enabled, setEnabled] = useState(false);
-  const [gtagAvailable, setGtagAvailable] = useState(false);
-  const [googleScriptDetected, setGoogleScriptDetected] = useState(false);
-  const [googleScriptLoaded, setGoogleScriptLoaded] = useState(false);
-  const [dataLayerSize, setDataLayerSize] = useState(0);
-  const [events, setEvents] = useState<
-    Array<{
-      timestamp: string;
-      type: string;
-      eventName: string;
-      gtagAvailable?: boolean;
-      analyticsTarget?: string;
-      adsTarget?: string;
-    }>
-  >([]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const params = new URLSearchParams(window.location.search);
-    const debugEnabled = params.get("debug_tracking") === "1";
-    setEnabled(debugEnabled);
-
-    if (!debugEnabled) return;
-
-    const syncGtag = () => {
-      setGtagAvailable(typeof window.gtag === "function");
-      setGoogleScriptDetected(
-        Boolean(document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${googleTagId}"]`)),
-      );
-      setGoogleScriptLoaded(
-        Boolean(
-          performance
-            .getEntriesByType("resource")
-            .find(
-              (entry) =>
-                entry.name.includes("googletagmanager.com/gtag/js") &&
-                entry.name.includes(googleTagId ?? ""),
-            ),
-        ),
-      );
-      setDataLayerSize(Array.isArray((window as Window & { dataLayer?: unknown[] }).dataLayer)
-        ? (window as Window & { dataLayer?: unknown[] }).dataLayer!.length
-        : 0);
-
-      if (typeof window.gtag === "function") {
-        window.gtag("set", "debug_mode", true);
-      }
-    };
-
-    syncGtag();
-
-    const interval = window.setInterval(syncGtag, 1000);
-    const onDebugEvent = (event: Event) => {
-      const detail = (event as CustomEvent).detail as {
-        timestamp: string;
-        type: string;
-        eventName: string;
-        gtagAvailable?: boolean;
-        analyticsTarget?: string;
-        adsTarget?: string;
-      };
-
-      setEvents((current) => [detail, ...current].slice(0, 6));
-      if (typeof detail.gtagAvailable === "boolean") {
-        setGtagAvailable(detail.gtagAvailable);
-      }
-    };
-
-    window.addEventListener("tracking-debug", onDebugEvent);
-    return () => {
-      window.clearInterval(interval);
-      window.removeEventListener("tracking-debug", onDebugEvent);
-    };
-  }, []);
-
-  if (!enabled) return null;
-
-  return (
-    <div className="fixed bottom-24 right-4 z-[60] w-[min(24rem,calc(100vw-2rem))] rounded-3xl border border-brand-navy/15 bg-white/95 p-4 text-xs text-brand-navy shadow-soft backdrop-blur xl:bottom-6">
-      <p className="font-semibold">Tracking debug</p>
-      <p className="mt-2">gtag: {gtagAvailable ? "detectado" : "no detectado"}</p>
-      <p>script tag: {googleScriptDetected ? "detectado" : "no detectado"}</p>
-      <p>script cargado: {googleScriptLoaded ? "si" : "no"}</p>
-      <p>dataLayer items: {dataLayerSize}</p>
-      <p>GA4 ID: {googleTagId ?? "missing"}</p>
-      <p>Ads ID: {googleAdsId ?? "missing"}</p>
-      <div className="mt-3 space-y-2 border-t border-brand-navy/10 pt-3">
-        {events.length ? (
-          events.map((event, index) => (
-            <div key={`${event.timestamp}-${event.type}-${event.eventName}-${index}`} className="rounded-2xl bg-brand-navy/[0.04] p-2">
-              <p className="font-medium">
-                {event.timestamp} · {event.type} · {event.eventName}
-              </p>
-              <p>gtag: {event.gtagAvailable ? "yes" : "no"}</p>
-              {event.analyticsTarget ? <p>GA4: {event.analyticsTarget}</p> : null}
-              {event.adsTarget ? <p>Ads: {event.adsTarget}</p> : null}
-            </div>
-          ))
-        ) : (
-          <p>No hay eventos aún.</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
 export function LandingPage() {
   return (
     <div className="min-h-screen mobile-safe xl:pb-0">
@@ -1120,7 +974,6 @@ export function LandingPage() {
       </main>
       <Footer />
       <FloatingWhatsapp />
-      <TrackingDebugPanel />
     </div>
   );
 }
