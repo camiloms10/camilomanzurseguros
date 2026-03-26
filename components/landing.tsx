@@ -1000,6 +1000,9 @@ function FloatingWhatsapp() {
 function TrackingDebugPanel() {
   const [enabled, setEnabled] = useState(false);
   const [gtagAvailable, setGtagAvailable] = useState(false);
+  const [googleScriptDetected, setGoogleScriptDetected] = useState(false);
+  const [googleScriptLoaded, setGoogleScriptLoaded] = useState(false);
+  const [dataLayerSize, setDataLayerSize] = useState(0);
   const [events, setEvents] = useState<
     Array<{
       timestamp: string;
@@ -1020,7 +1023,31 @@ function TrackingDebugPanel() {
 
     if (!debugEnabled) return;
 
-    const syncGtag = () => setGtagAvailable(typeof window.gtag === "function");
+    const syncGtag = () => {
+      setGtagAvailable(typeof window.gtag === "function");
+      setGoogleScriptDetected(
+        Boolean(document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${googleTagId}"]`)),
+      );
+      setGoogleScriptLoaded(
+        Boolean(
+          performance
+            .getEntriesByType("resource")
+            .find(
+              (entry) =>
+                entry.name.includes("googletagmanager.com/gtag/js") &&
+                entry.name.includes(googleTagId ?? ""),
+            ),
+        ),
+      );
+      setDataLayerSize(Array.isArray((window as Window & { dataLayer?: unknown[] }).dataLayer)
+        ? (window as Window & { dataLayer?: unknown[] }).dataLayer!.length
+        : 0);
+
+      if (typeof window.gtag === "function") {
+        window.gtag("set", "debug_mode", true);
+      }
+    };
+
     syncGtag();
 
     const interval = window.setInterval(syncGtag, 1000);
@@ -1053,6 +1080,9 @@ function TrackingDebugPanel() {
     <div className="fixed bottom-24 right-4 z-[60] w-[min(24rem,calc(100vw-2rem))] rounded-3xl border border-brand-navy/15 bg-white/95 p-4 text-xs text-brand-navy shadow-soft backdrop-blur xl:bottom-6">
       <p className="font-semibold">Tracking debug</p>
       <p className="mt-2">gtag: {gtagAvailable ? "detectado" : "no detectado"}</p>
+      <p>script tag: {googleScriptDetected ? "detectado" : "no detectado"}</p>
+      <p>script cargado: {googleScriptLoaded ? "si" : "no"}</p>
+      <p>dataLayer items: {dataLayerSize}</p>
       <p>GA4 ID: {googleTagId ?? "missing"}</p>
       <p>Ads ID: {googleAdsId ?? "missing"}</p>
       <div className="mt-3 space-y-2 border-t border-brand-navy/10 pt-3">
