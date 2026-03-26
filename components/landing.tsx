@@ -33,6 +33,7 @@ declare global {
 
 const whatsappHref = `https://wa.me/52${siteConfig.phone}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`;
 const phoneHref = `tel:${siteConfig.phone}`;
+const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID;
 const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 const whatsappConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL_WHATSAPP;
 const formConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL_FORM;
@@ -46,6 +47,10 @@ function trackConversion(label?: string, eventName = "generate_lead") {
     value: 1,
     currency: "MXN",
   };
+
+  if (googleTagId) {
+    params.send_to = googleTagId;
+  }
 
   window.gtag("event", eventName, params);
 
