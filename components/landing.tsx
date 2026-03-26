@@ -52,6 +52,11 @@ function emitTrackingDebug(detail: Record<string, unknown>) {
   );
 }
 
+function isTrackingDebugEnabled() {
+  if (typeof window === "undefined") return false;
+  return new URLSearchParams(window.location.search).get("debug_tracking") === "1";
+}
+
 function trackConversion(label?: string, eventName = "generate_lead") {
   if (typeof window === "undefined") return;
 
@@ -69,6 +74,10 @@ function trackConversion(label?: string, eventName = "generate_lead") {
     value: 1,
     currency: "MXN",
   };
+
+  if (isTrackingDebugEnabled()) {
+    params.debug_mode = true;
+  }
 
   if (googleTagId) {
     params.send_to = googleTagId;
