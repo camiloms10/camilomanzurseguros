@@ -47,11 +47,15 @@ function trackConversion(label?: string, eventName = "generate_lead") {
     currency: "MXN",
   };
 
-  if (googleAdsId && label) {
-    params.send_to = `${googleAdsId}/${label}`;
-  }
-
   window.gtag("event", eventName, params);
+
+  if (googleAdsId && label) {
+    window.gtag("event", "conversion", {
+      send_to: `${googleAdsId}/${label}`,
+      value: 1,
+      currency: "MXN",
+    });
+  }
 }
 
 function trackWhatsappClick() {
