@@ -619,6 +619,49 @@ function LocationSection() {
   );
 }
 
+function ReviewsSection() {
+  return (
+    <section className="section-gap pt-0">
+      <div className="container-shell">
+        <Reveal className="glass-panel p-5 sm:p-8">
+          <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <span className="eyebrow">Opiniones de clientes</span>
+              <h2 className="type-heading mt-5 text-3xl sm:mt-6 sm:text-4xl">
+                La confianza también se construye con la experiencia de quienes ya cotizaron
+              </h2>
+              <p className="type-body mt-3 sm:mt-4 sm:text-lg">
+                Ya puedes encontrar reseñas en Facebook, y seguiremos sumando más opiniones
+                reales de clientes para que tengas otra referencia antes de contactarnos.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <a
+                href={siteConfig.facebookReviewsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="button-secondary w-full sm:w-auto lg:w-full"
+              >
+                Ver reseñas en Facebook
+              </a>
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                className="button-whatsapp w-full sm:w-auto lg:w-full"
+                onClick={() => trackLead({ channel: "whatsapp", location: "reviews_section" })}
+              >
+                Cotizar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 function FAQSection() {
   const [active, setActive] = useState<number | null>(0);
 
@@ -959,6 +1002,7 @@ export function LandingPage() {
         <Benefits />
         <InsuranceGrid />
         <TrustSection />
+        <ReviewsSection />
         <LocationSection />
         <FAQSection />
         <ContactSection />

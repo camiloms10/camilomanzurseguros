@@ -28,6 +28,7 @@ export const siteConfig = {
   city: "Tampico, Tamaulipas",
   whatsappMessage: "Hola, quiero cotizar un seguro",
   facebookUrl: "https://www.facebook.com/profile.php?id=61577805622923",
+  facebookReviewsUrl: "https://www.facebook.com/profile.php?id=61577805622923&sk=reviews",
   logoPath: "/logo-camilo-manzur.png",
 };
 
