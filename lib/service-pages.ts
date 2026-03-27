@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import type { ComponentType } from "react";
 import {
   BadgeCheckIcon,
@@ -10,6 +11,7 @@ import {
   SparklesIcon,
   WalletCardsIcon,
 } from "@/components/icons";
+import { siteConfig } from "@/lib/site-data";
 
 export type ServicePageConfig = {
   slug: string;
@@ -287,3 +289,27 @@ export const servicePages: ServicePageConfig[] = [
 export const servicePagesBySlug = Object.fromEntries(
   servicePages.map((service) => [service.slug, service]),
 ) as Record<string, ServicePageConfig>;
+
+export function buildServiceMetadata(service: ServicePageConfig): Metadata {
+  const url = `${siteConfig.siteUrl}/${service.slug}`;
+
+  return {
+    title: service.metaTitle,
+    description: service.metaDescription,
+    alternates: {
+      canonical: `/${service.slug}`,
+    },
+    openGraph: {
+      title: service.metaTitle,
+      description: service.metaDescription,
+      url,
+      type: "website",
+      locale: "es_MX",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: service.metaTitle,
+      description: service.metaDescription,
+    },
+  };
+}

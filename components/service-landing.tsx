@@ -2,7 +2,6 @@
 
 import type { FormEvent } from "react";
 import { useState } from "react";
-import type { Metadata } from "next";
 import {
   ArrowRightIcon,
   ChevronDownIcon,
@@ -19,30 +18,6 @@ declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
   }
-}
-
-export function buildServiceMetadata(service: ServicePageConfig): Metadata {
-  const url = `${siteConfig.siteUrl}/${service.slug}`;
-
-  return {
-    title: service.metaTitle,
-    description: service.metaDescription,
-    alternates: {
-      canonical: `/${service.slug}`,
-    },
-    openGraph: {
-      title: service.metaTitle,
-      description: service.metaDescription,
-      url,
-      type: "website",
-      locale: "es_MX",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: service.metaTitle,
-      description: service.metaDescription,
-    },
-  };
 }
 
 function buildWhatsappHref(message: string) {
