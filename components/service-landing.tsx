@@ -1,16 +1,25 @@
 "use client";
 
-import type { FormEvent } from "react";
+import type { ComponentType, FormEvent } from "react";
 import { useState } from "react";
 import {
   ArrowRightIcon,
+  BadgeCheckIcon,
+  Building2Icon,
+  CarFrontIcon,
   ChevronDownIcon,
   ChevronRightIcon,
   FacebookIcon,
+  HeartPulseIcon,
+  HelpingHandIcon,
+  LifeBuoyIcon,
   MessageCircleIcon,
   PhoneIcon,
+  ShieldCheckIcon,
+  SparklesIcon,
+  WalletCardsIcon,
 } from "@/components/icons";
-import type { ServicePageConfig } from "@/lib/service-pages";
+import type { ServiceIconKey, ServicePageConfig } from "@/lib/service-pages";
 import { formOptions, insurerCount, siteConfig, trustLogos } from "@/lib/site-data";
 import { trackLead } from "@/lib/tracking";
 
@@ -19,6 +28,18 @@ declare global {
     gtag?: (...args: unknown[]) => void;
   }
 }
+
+const serviceIcons: Record<ServiceIconKey, ComponentType<{ className?: string }>> = {
+  badgeCheck: BadgeCheckIcon,
+  building2: Building2Icon,
+  carFront: CarFrontIcon,
+  heartPulse: HeartPulseIcon,
+  helpingHand: HelpingHandIcon,
+  lifeBuoy: LifeBuoyIcon,
+  shieldCheck: ShieldCheckIcon,
+  sparkles: SparklesIcon,
+  walletCards: WalletCardsIcon,
+};
 
 function buildWhatsappHref(message: string) {
   return `https://wa.me/52${siteConfig.phone}?text=${encodeURIComponent(message)}`;
@@ -156,7 +177,7 @@ export function ServiceLandingPage({ service }: { service: ServicePageConfig }) 
                   </p>
                   <div className="mt-5 space-y-3 sm:mt-6">
                     {service.heroHighlights.map((item) => {
-                      const Icon = item.icon;
+                      const Icon = serviceIcons[item.icon];
                       return (
                         <div
                           key={item.title}
@@ -203,7 +224,7 @@ export function ServiceLandingPage({ service }: { service: ServicePageConfig }) 
 
             <div className="mt-10 grid gap-4 md:grid-cols-3">
               {service.valueProps.map((item) => {
-                const Icon = item.icon;
+                const Icon = serviceIcons[item.icon];
                 return (
                   <div key={item.title} className="glass-panel p-5 sm:p-7">
                     <div className="inline-flex rounded-3xl bg-brand-sky p-3 text-brand-navy sm:p-4">

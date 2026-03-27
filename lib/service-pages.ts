@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import type { ComponentType } from "react";
-import {
-  BadgeCheckIcon,
-  Building2Icon,
-  CarFrontIcon,
-  HeartPulseIcon,
-  HelpingHandIcon,
-  LifeBuoyIcon,
-  ShieldCheckIcon,
-  SparklesIcon,
-  WalletCardsIcon,
-} from "@/components/icons";
 import { siteConfig } from "@/lib/site-data";
+
+export type ServiceIconKey =
+  | "badgeCheck"
+  | "building2"
+  | "carFront"
+  | "heartPulse"
+  | "helpingHand"
+  | "lifeBuoy"
+  | "shieldCheck"
+  | "sparkles"
+  | "walletCards";
 
 export type ServicePageConfig = {
   slug: string;
@@ -26,12 +25,12 @@ export type ServicePageConfig = {
   heroHighlights: Array<{
     title: string;
     description: string;
-    icon: ComponentType<{ className?: string }>;
+    icon: ServiceIconKey;
   }>;
   valueProps: Array<{
     title: string;
     description: string;
-    icon: ComponentType<{ className?: string }>;
+    icon: ServiceIconKey;
   }>;
   faqs: Array<{
     question: string;
@@ -56,34 +55,34 @@ export const servicePages: ServicePageConfig[] = [
       {
         title: "Comparación real",
         description: "Analizamos varias aseguradoras para no dejarte con una sola opción.",
-        icon: SparklesIcon,
+        icon: "sparkles",
       },
       {
         title: "Cobertura adecuada",
         description: "Te orientamos sobre deducibles, daños, robo, RC y asistencia.",
-        icon: ShieldCheckIcon,
+        icon: "shieldCheck",
       },
       {
         title: "Respuesta rápida",
         description: "La forma más ágil de avanzar es por WhatsApp con tus datos básicos.",
-        icon: WalletCardsIcon,
+        icon: "walletCards",
       },
     ],
     valueProps: [
       {
         title: "Opciones según tu perfil",
         description: "No es lo mismo cotizar primer auto, uso diario o flotilla. La recomendación cambia según tu caso.",
-        icon: CarFrontIcon,
+        icon: "carFront",
       },
       {
         title: "Explicación clara",
         description: "Te ayudamos a entender qué cambia entre una cobertura básica, limitada o amplia.",
-        icon: HelpingHandIcon,
+        icon: "helpingHand",
       },
       {
         title: "Seguimiento posterior",
         description: "Si decides contratar, también te acompañamos con renovaciones y dudas de la póliza.",
-        icon: LifeBuoyIcon,
+        icon: "lifeBuoy",
       },
     ],
     faqs: [
@@ -117,34 +116,34 @@ export const servicePages: ServicePageConfig[] = [
       {
         title: "Red hospitalaria",
         description: "Revisamos hospitales, médicos y alcance de protección para tu zona y perfil.",
-        icon: HeartPulseIcon,
+        icon: "heartPulse",
       },
       {
         title: "Explicación sin letras chiquitas",
         description: "Te explicamos deducible, coaseguro y exclusiones con lenguaje claro.",
-        icon: HelpingHandIcon,
+        icon: "helpingHand",
       },
       {
         title: "Comparación con criterio",
         description: "No solo precio: también servicio, acceso y continuidad.",
-        icon: BadgeCheckIcon,
+        icon: "badgeCheck",
       },
     ],
     valueProps: [
       {
         title: "Decisión mejor informada",
         description: "Te acompañamos a comparar variables que sí impactan al momento de usar la póliza.",
-        icon: SparklesIcon,
+        icon: "sparkles",
       },
       {
         title: "Ajuste a tu etapa de vida",
         description: "La recomendación cambia si cotizas de forma individual, familiar o empresarial.",
-        icon: ShieldCheckIcon,
+        icon: "shieldCheck",
       },
       {
         title: "Atención rápida",
         description: "Puedes iniciar la cotización por WhatsApp y avanzar sin perder tiempo.",
-        icon: WalletCardsIcon,
+        icon: "walletCards",
       },
     ],
     faqs: [
@@ -178,34 +177,34 @@ export const servicePages: ServicePageConfig[] = [
       {
         title: "Protección con sentido",
         description: "La cobertura se alinea a tu familia, tus ingresos y tus objetivos patrimoniales.",
-        icon: ShieldCheckIcon,
+        icon: "shieldCheck",
       },
       {
         title: "Opciones comparadas",
         description: "Revisamos alternativas entre varias aseguradoras para encontrar mejor ajuste.",
-        icon: SparklesIcon,
+        icon: "sparkles",
       },
       {
         title: "Orientación humana",
         description: "Resolvemos dudas de forma clara para que tomes una decisión informada.",
-        icon: HelpingHandIcon,
+        icon: "helpingHand",
       },
     ],
     valueProps: [
       {
         title: "Protección familiar",
         description: "Pensado para quienes quieren cuidar la estabilidad económica de quienes dependen de ellos.",
-        icon: ShieldCheckIcon,
+        icon: "shieldCheck",
       },
       {
         title: "Metas de largo plazo",
         description: "También te orientamos si buscas combinar protección con ahorro o retiro.",
-        icon: WalletCardsIcon,
+        icon: "walletCards",
       },
       {
         title: "Acompañamiento completo",
         description: "Desde la cotización hasta la contratación, todo con seguimiento cercano.",
-        icon: LifeBuoyIcon,
+        icon: "lifeBuoy",
       },
     ],
     faqs: [
@@ -239,34 +238,34 @@ export const servicePages: ServicePageConfig[] = [
       {
         title: "Protección patrimonial",
         description: "Analizamos necesidades reales para no sobrerrecomendar ni quedarte corto.",
-        icon: Building2Icon,
+        icon: "building2",
       },
       {
         title: "Comparación profesional",
         description: "Revisamos alternativas según actividad, tamaño y nivel de exposición.",
-        icon: BadgeCheckIcon,
+        icon: "badgeCheck",
       },
       {
         title: "Atención cercana",
         description: "Puedes iniciar por WhatsApp y después aterrizar los detalles necesarios.",
-        icon: HelpingHandIcon,
+        icon: "helpingHand",
       },
     ],
     valueProps: [
       {
         title: "Continuidad operativa",
         description: "La idea es ayudarte a proteger activos, operación y estabilidad del negocio.",
-        icon: ShieldCheckIcon,
+        icon: "shieldCheck",
       },
       {
         title: "Cobertura a medida",
         description: "Las empresas no se resuelven con plantillas genéricas; la asesoría se adapta a tu caso.",
-        icon: SparklesIcon,
+        icon: "sparkles",
       },
       {
         title: "Seguimiento real",
         description: "Tienes acompañamiento antes de contratar y también en renovaciones o ajustes.",
-        icon: LifeBuoyIcon,
+        icon: "lifeBuoy",
       },
     ],
     faqs: [
