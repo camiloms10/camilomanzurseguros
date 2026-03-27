@@ -45,6 +45,74 @@ function buildWhatsappHref(message: string) {
   return `https://wa.me/52${siteConfig.phone}?text=${encodeURIComponent(message)}`;
 }
 
+function ServiceBrandMarkHeader() {
+  const [logoMissing, setLogoMissing] = useState(false);
+
+  return (
+    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+      {!logoMissing ? (
+        <img
+          src={siteConfig.logoPath}
+          alt={siteConfig.name}
+          className="h-12 w-auto flex-none object-contain sm:h-14"
+          onError={() => setLogoMissing(true)}
+        />
+      ) : (
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-10 flex-none items-center justify-center sm:h-12 sm:w-11">
+            <svg viewBox="0 0 86 120" className="h-11 w-10 sm:h-12 sm:w-11" fill="none" aria-hidden="true">
+              <path
+                d="M24 18c15-6 32-8 53-7-22 4-37 10-47 18v46c0 20 6 33 16 43-7-1-16-7-24-18C12 89 8 75 8 57V18c4 1 10 1 16 0Z"
+                fill="#FFFFFF"
+              />
+              <path
+                d="M41 24c14 0 27 2 40 7v34c0 19-8 35-24 48l-11-8c13-10 20-23 20-39V32c-8-3-17-5-25-8Z"
+                fill="#B6BED2"
+              />
+            </svg>
+          </div>
+          <div className="min-w-0">
+            <div className="flex flex-col leading-none sm:flex-row sm:items-start sm:gap-3">
+              <span className="truncate text-[1.55rem] font-semibold tracking-[-0.04em] text-white sm:text-[2rem]">
+                Camilo Manzur
+              </span>
+              <div className="sm:mt-[0.35rem]">
+                <span className="mt-1 block text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:mt-0 sm:text-[0.78rem]">
+                  Agente de Seguros
+                </span>
+                <a
+                  href="/#ubicacion"
+                  className="mt-1 block text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
+                >
+                  {siteConfig.officeLabel}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="min-w-0">
+        <div className="flex flex-col leading-none sm:flex-row sm:items-start sm:gap-3">
+          <span className="truncate text-[1.55rem] font-semibold tracking-[-0.04em] text-white sm:text-[2rem]">
+            Camilo Manzur
+          </span>
+          <div className="sm:mt-[0.35rem]">
+            <span className="mt-1 block text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/90 sm:mt-0 sm:text-[0.78rem]">
+              Agente de Seguros
+            </span>
+            <a
+              href="/#ubicacion"
+              className="mt-1 block text-[0.58rem] font-medium tracking-[0.1em] text-white/70 transition hover:text-white/90 sm:text-[0.62rem]"
+            >
+              {siteConfig.officeLabel}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ServiceLandingPage({ service }: { service: ServicePageConfig }) {
   const [faqIndex, setFaqIndex] = useState<number | null>(0);
   const [formState, setFormState] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -92,7 +160,7 @@ export function ServiceLandingPage({ service }: { service: ServicePageConfig }) 
       <header className="sticky top-0 z-50 border-b border-white/8 bg-[#172448] backdrop-blur-xl">
         <div className="container-shell flex h-[4.7rem] items-center justify-between gap-4 sm:h-[5.35rem]">
           <a href="/" className="flex min-w-0 items-center">
-            <img src={siteConfig.logoPath} alt={siteConfig.name} className="h-11 w-auto object-contain sm:h-12" />
+            <ServiceBrandMarkHeader />
           </a>
 
           <a
