@@ -91,14 +91,8 @@ export function ServiceLandingPage({ service }: { service: ServicePageConfig }) 
     <div className="min-h-screen mobile-safe xl:pb-0">
       <header className="sticky top-0 z-50 border-b border-white/8 bg-[#172448] backdrop-blur-xl">
         <div className="container-shell flex h-[4.7rem] items-center justify-between gap-4 sm:h-[5.35rem]">
-          <a href="/" className="flex min-w-0 items-center gap-3 text-white sm:gap-4">
+          <a href="/" className="flex min-w-0 items-center">
             <img src={siteConfig.logoPath} alt={siteConfig.name} className="h-11 w-auto object-contain sm:h-12" />
-            <div className="min-w-0">
-              <p className="text-lg font-semibold sm:text-xl">{siteConfig.name}</p>
-              <p className="text-xs uppercase tracking-[0.28em] text-white/80 sm:text-sm">
-                {service.shortTitle}
-              </p>
-            </div>
           </a>
 
           <a
